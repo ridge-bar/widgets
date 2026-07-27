@@ -3,6 +3,10 @@
 setup() {
   PLUGIN_DIR="${BATS_TEST_DIRNAME}/.."
   source "${PLUGIN_DIR}/clockify.sh"
+  # The token-file default is $HOME-relative, so tests run against a clean
+  # temp HOME rather than the developer's real one.
+  export HOME="${BATS_TEST_TMPDIR}/home"
+  mkdir -p "$HOME"
 }
 
 @test "load_settings applies defaults" {
@@ -159,3 +163,4 @@ setup() {
   [ "$SETTING_token_file" = "${HOME}/.config/ridge/.clockify_token" ]
   rm -f "$f"
 }
+
