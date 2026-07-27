@@ -89,3 +89,7 @@ Run a widget's tests with `bats <widget>/tests`.
 
 Widgets may depend on external tools, but must say so in their README and must not fail silently
 when one is missing. Prefer degrading visibly over doing nothing.
+
+## License
+
+MIT - see [LICENSE](LICENSE). Contributions are accepted under the same terms.
