@@ -1,0 +1,32 @@
+name: raycast_focus
+version: 0.1.0
+description: Toggle and reflect a Raycast Focus session from the bar
+executable: ./raycast_focus.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: raycast_focus.
+permissions:
+  ops: [add, set, remove]
+settings:
+  interval: "15"
+  region: "right"
+  font: "Iosevka Nerd Font"
+  on_color: "theme:success"
+  off_color: "theme:warning"
+  glyph_color: "#12161D"
+  categories: "social---edited"
+  mode: "block"
+  corner_radius: ""
+  bg_height: ""
+settings_schema:
+  interval: { type: number, min: 1, max: 120, step: 1 }
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  on_color: { type: color }
+  off_color: { type: color }
+  glyph_color: { type: color }
+  categories: { type: string }
+  mode: { type: string }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }

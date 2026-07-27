@@ -1,0 +1,48 @@
+name: calendar
+version: 0.2.0
+description: Date item + popup for the next 24h of Apple Calendar meetings
+executable: ./calendar.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: calendar.
+permissions:
+  ops: [add, set, remove, popup]
+settings:
+  region: "right"
+  font: "Iosevka Nerd Font"
+  date_format: "%a %d/%m/%Y"
+  date_interval: "30"
+  label_color: "theme:primary"
+  icon_color: "theme:system"
+  date_icon: "󰃭"
+  bg_color: "theme:background"
+  busy_bg_color: "theme:warning"
+  busy_fg_color: "#12161D"
+  corner_radius: ""
+  bg_height: ""
+  calendar_app: "BusyCal"
+  max_meetings: "8"
+  popup_header_color: "theme:system"
+  row_text_color: "theme:primary"
+  row_icon_color: "theme:secondary"
+  in_progress_color: "theme:success"
+settings_schema:
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  date_format: { type: string }
+  date_interval: { type: number, min: 5, max: 300, step: 5 }
+  label_color: { type: color }
+  icon_color: { type: color }
+  date_icon: { type: string }
+  bg_color: { type: color }
+  busy_bg_color: { type: color }
+  busy_fg_color: { type: color }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }
+  calendar_app: { type: string }
+  max_meetings: { type: number, min: 1, max: 20, step: 1 }
+  popup_header_color: { type: color }
+  row_text_color: { type: color }
+  row_icon_color: { type: color }
+  in_progress_color: { type: color }

@@ -1,0 +1,62 @@
+name: aerospace_workspaces
+version: 0.1.0
+description: Dynamic per-monitor AeroSpace workspace pills, glyphs, focus, click-to-switch
+executable: ./aerospace-workspaces-plugin.sh
+autostart: false
+restart:
+  mode: always
+owns: aerospace_ws.
+permissions:
+  ops: [add, set, remove, move, bracket, query, brackets]
+settings:
+  bg_color: "theme:background"
+  bg_focused_color: "theme:system"
+  number_color: "theme:secondary"
+  glyph_color: "theme:primary@0.5"
+  glyph_focused_color: "theme:primary"
+  corner_radius: ""
+  height: ""
+  max_ws_apps: "5"
+  num_pad_left: "8"
+  num_pad_right: "4"
+  glyph_pad_left: "8"
+  glyph_pad_right: "8"
+  bubble_margin: "6"
+  border_focused_color: "theme:system"
+  border_width: "2"
+  region: "left"
+  status_region: "right"     # region for the aerospace_ws.status "AeroSpace down" warning item
+  app_font: "sketchybar-app-font"  # app-glyph ligature font (github.com/kvndrsslr/sketchybar-app-font)
+  app_font_style: "Regular"
+  app_font_size: "14"         # sketchybar itself typically uses ~13; tunable
+  show_empty_workspaces: "false"
+  font: "Iosevka Nerd Font"   # bar font for the workspace number text; "" to use ridge default
+  update_mode: "subscribe"    # "subscribe" (aerospace subscribe), "trigger" (ridge trigger aerospace_workspaces), or "poll"
+  poll_interval: "2"          # seconds between reconciles in poll mode
+  status_color: "theme:error"     # aerospace_ws.status "AeroSpace down" warning item
+settings_schema:
+  bg_color: { type: color }
+  bg_focused_color: { type: color }
+  number_color: { type: color }
+  glyph_color: { type: color }
+  glyph_focused_color: { type: color }
+  corner_radius: { type: number, min: 0, max: 30 }
+  height: { type: number, min: 16, max: 48 }
+  max_ws_apps: { type: number, min: 1, max: 20, step: 1 }
+  num_pad_left: { type: number, min: 0, max: 40 }
+  num_pad_right: { type: number, min: 0, max: 40 }
+  glyph_pad_left: { type: number, min: 0, max: 40 }
+  glyph_pad_right: { type: number, min: 0, max: 40 }
+  bubble_margin: { type: number, min: 0, max: 40 }
+  border_focused_color: { type: color }
+  border_width: { type: number, min: 0, max: 8 }
+  region: { type: enum, options: [left, center, right] }
+  status_region: { type: enum, options: [left, center, right] }
+  app_font: { type: string }
+  app_font_style: { type: string }
+  app_font_size: { type: number, min: 8, max: 32 }
+  show_empty_workspaces: { type: bool }
+  font: { type: string }
+  update_mode: { type: enum, options: [subscribe, trigger, poll] }
+  poll_interval: { type: number, min: 0.2, max: 10, step: 0.1 }
+  status_color: { type: color }

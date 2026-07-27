@@ -1,0 +1,27 @@
+name: notifications
+version: 0.2.0
+description: Colorizes the clock while Notification Center has unread notifications, restoring it when cleared
+executable: ./notifications.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: notifications.
+permissions:
+  ops: [set]
+  # Style-only grant on the clock item; changing target_item in settings
+  # also requires updating this list (edited on purpose, never at runtime).
+  styles: [clock.time]
+settings:
+  interval: "10"
+  target_item: "clock.time"
+  tint_bg_color: "theme:warning"
+  tint_label_color: "#12161D"
+  normal_bg_color: "theme:background"
+  normal_label_color: "theme:primary"
+settings_schema:
+  interval: { type: number, min: 5, max: 300, step: 5 }
+  target_item: { type: string }
+  tint_bg_color: { type: color }
+  tint_label_color: { type: color }
+  normal_bg_color: { type: color }
+  normal_label_color: { type: color }

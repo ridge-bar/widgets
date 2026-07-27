@@ -1,0 +1,22 @@
+# Example ridge config for the AeroSpace apps (center window list) bar. Copy
+# the plugin to ~/.config/ridge/plugins/aerospace_apps/ and this file to
+# ~/.config/ridge/ridge.yaml (merge with your own). Requires jq, a Nerd Font
+# (bar text), and the sketchybar-app-font font (app icons).
+bar:
+  height: 26
+  color: "#1A1B26E6"
+  padding_left: 12
+  padding_right: 12
+
+items:
+  # The window bubbles are created at runtime by the plugin (ids aerospace_apps.*).
+  # ridge requires at least one statically-declared item, so we declare a clock.
+  - id: clock
+    region: right
+    type: clock
+
+plugins:
+  - name: aerospace_apps
+    enabled: true
+    settings:
+      border_focused_color: "#BB9AF7"

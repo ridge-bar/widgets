@@ -1,0 +1,303 @@
+{
+  "current_condition": [
+    {
+      "temp_C": "14",
+      "FeelsLikeC": "12",
+      "humidity": "88",
+      "windspeedKmph": "22",
+      "winddir16Point": "SW",
+      "weatherDesc": [
+        {
+          "value": "Light rain shower"
+        }
+      ]
+    }
+  ],
+  "weather": [
+    {
+      "date": "2026-07-06",
+      "maxtempC": "16",
+      "mintempC": "11",
+      "hourly": [
+        {
+          "time": "0",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "80",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "300",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "80",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "600",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "80",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "900",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "80",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "1200",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "80",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "1500",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "80",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "1800",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "80",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "2100",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "80",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "maxtempC": "17",
+      "mintempC": "12",
+      "hourly": [
+        {
+          "time": "0",
+          "weatherDesc": [
+            {
+              "value": "Moderate rain"
+            }
+          ],
+          "chanceofrain": "90",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "300",
+          "weatherDesc": [
+            {
+              "value": "Moderate rain"
+            }
+          ],
+          "chanceofrain": "90",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "600",
+          "weatherDesc": [
+            {
+              "value": "Moderate rain"
+            }
+          ],
+          "chanceofrain": "90",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "900",
+          "weatherDesc": [
+            {
+              "value": "Moderate rain"
+            }
+          ],
+          "chanceofrain": "90",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "1200",
+          "weatherDesc": [
+            {
+              "value": "Moderate rain"
+            }
+          ],
+          "chanceofrain": "90",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "1500",
+          "weatherDesc": [
+            {
+              "value": "Moderate rain"
+            }
+          ],
+          "chanceofrain": "90",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "1800",
+          "weatherDesc": [
+            {
+              "value": "Moderate rain"
+            }
+          ],
+          "chanceofrain": "90",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "2100",
+          "weatherDesc": [
+            {
+              "value": "Moderate rain"
+            }
+          ],
+          "chanceofrain": "90",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "maxtempC": "15",
+      "mintempC": "10",
+      "hourly": [
+        {
+          "time": "0",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "70",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "300",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "70",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "600",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "70",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "900",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "70",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "1200",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "70",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "1500",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "70",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "1800",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "70",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        },
+        {
+          "time": "2100",
+          "weatherDesc": [
+            {
+              "value": "Patchy rain possible"
+            }
+          ],
+          "chanceofrain": "70",
+          "chanceofthunder": "0",
+          "precipMM": "0.0"
+        }
+      ]
+    }
+  ]
+}

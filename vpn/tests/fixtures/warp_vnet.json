@@ -1,0 +1,23 @@
+{
+  "active_vnet_id": "f708c9f2-dc0f-49ee-af84-b5e142232c72",
+  "virtual_networks": [
+    {
+      "id": "6c76b63f-a818-486f-b655-bc74a21c255f",
+      "name": "Default",
+      "description": "",
+      "default": true
+    },
+    {
+      "id": "f708c9f2-dc0f-49ee-af84-b5e142232c72",
+      "name": "Production",
+      "description": "Production VPC Access",
+      "default": false
+    },
+    {
+      "id": "18f8ad6e-79df-4cb3-b761-34deb5be3f12",
+      "name": "Staging&Dev",
+      "description": "Staging and Dev VPC access",
+      "default": false
+    }
+  ]
+}

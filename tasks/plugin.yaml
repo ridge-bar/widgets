@@ -1,0 +1,44 @@
+name: tasks
+version: 0.1.0
+description: Open-todo count from Things3 Today, NotePlan's today note, and an Obsidian inbox folder, with a per-source popup
+executable: ./tasks.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: tasks.
+permissions:
+  ops: [add, set, remove, popup]
+settings:
+  region: "right"
+  font: "Iosevka Nerd Font"
+  interval: "60"
+  things_enabled: "true"
+  noteplan_enabled: "true"
+  noteplan_dir: ""
+  obsidian_enabled: "true"
+  obsidian_inbox_dir: ""
+  obsidian_vault: "Notes"
+  obsidian_inbox_rel: "Notes/00-INBOX"
+  max_rows: "8"
+  icon_color: "theme:primary"
+  empty_color: "theme:secondary"
+  bg_color: "theme:background"
+  corner_radius: ""
+  bg_height: ""
+settings_schema:
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  interval: { type: number, min: 10, max: 600, step: 10 }
+  things_enabled: { type: bool }
+  noteplan_enabled: { type: bool }
+  obsidian_enabled: { type: bool }
+  noteplan_dir: { type: string }
+  obsidian_inbox_dir: { type: string }
+  obsidian_vault: { type: string }
+  obsidian_inbox_rel: { type: string }
+  max_rows: { type: number, min: 1, max: 20, step: 1 }
+  icon_color: { type: color }
+  empty_color: { type: color }
+  bg_color: { type: color }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }

@@ -1,0 +1,22 @@
+name: keyboard
+version: 0.1.0
+description: Flag emoji for the current macOS keyboard input source (layout)
+executable: ./keyboard.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: keyboard.
+permissions:
+  ops: [add, set, remove]
+settings:
+  interval: "1"
+  region: "right"
+  bg_color: "theme:background"
+  corner_radius: ""
+  bg_height: ""
+settings_schema:
+  interval: { type: number, min: 0.5, max: 30, step: 0.5 }
+  region: { type: enum, options: [left, center, right] }
+  bg_color: { type: color }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }

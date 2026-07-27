@@ -1,0 +1,18 @@
+Available Networks:
+
+  - ID: Exit Node (Server EU)
+    Network: 0.0.0.0/0
+    Status: Selected
+
+  - ID: Exit Node (Server US)
+    Network: 0.0.0.0/0
+    Status: Not Selected
+
+  - ID: office-lan
+    Network: 10.10.0.0/16
+    Status: Not Selected
+
+  - ID: internal-services
+    Domains: example.internal, service.internal
+    Status: Not Selected
+    Resolved IPs: -

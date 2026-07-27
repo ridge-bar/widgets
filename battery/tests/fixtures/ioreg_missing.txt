@@ -1,0 +1,4 @@
++-o SomeOtherDevice  <class IOService, id 0x9999999, registered, matched, active, busy 0 (0 ms), retain 4>
+    {
+      "SomeKey" = 1
+    }

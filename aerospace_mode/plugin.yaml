@@ -1,0 +1,36 @@
+name: aerospace_mode
+version: 0.1.0
+description: AeroSpace binding-mode badge (attention-colored pill, hidden in 'main' mode), placed beside the workspace strip
+executable: ./aerospace_mode.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: aerospace_mode.
+permissions:
+  ops: [add, set, remove, query, move]
+  # Lets the badge anchor immediately before the workspace-strip pills
+  # (aerospace_workspaces owns aerospace_ws.), instead of jumping to the
+  # absolute front of the region ahead of everything else (TASK-90).
+  anchors: [aerospace_ws.]
+settings:
+  region: "left"
+  font: "Iosevka Nerd Font"
+  bg_color: "theme:warning"
+  icon_color: "#12161D"
+  label_color: "#12161D"
+  corner_radius: ""
+  bg_height: ""
+  padding_left: "8"
+  padding_right: "8"
+  state_file: ""
+settings_schema:
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  bg_color: { type: color }
+  icon_color: { type: color }
+  label_color: { type: color }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }
+  padding_left: { type: number, min: 0, max: 40, step: 1 }
+  padding_right: { type: number, min: 0, max: 40, step: 1 }
+  state_file: { type: string }

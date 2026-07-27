@@ -1,0 +1,12 @@
+name: heartbeat
+version: 0.1.0
+description: Reference plugin - a live clock item proving the runtime
+executable: ./heartbeat.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: heartbeat.
+permissions:
+  ops: [add, set, remove]
+settings:
+  interval: "1"

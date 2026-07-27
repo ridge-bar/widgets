@@ -1,0 +1,7 @@
+Daemon status: Connected
+Management: Connected
+Signal: Connected
+Relays: 2/2 Available
+FQDN:
+NetBird IP: 100.64.0.5/16
+Interface type: Userspace

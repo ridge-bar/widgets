@@ -1,0 +1,56 @@
+[
+  {
+    "id": "r1",
+    "description": "Standup",
+    "projectId": "p1",
+    "taskId": null,
+    "tagIds": [],
+    "project": {"name": "Team"},
+    "timeInterval": {"start": "2026-07-10T08:00:00Z", "end": null}
+  },
+  {
+    "id": "d1",
+    "description": "Standup",
+    "projectId": "p1",
+    "taskId": null,
+    "tagIds": [],
+    "project": {"name": "Team"},
+    "timeInterval": {"start": "2026-07-09T08:00:00Z", "end": "2026-07-09T08:15:00Z"}
+  },
+  {
+    "id": "a1",
+    "description": "Write report",
+    "projectId": "p2",
+    "taskId": "t1",
+    "tagIds": ["tag1"],
+    "project": {"name": "Docs"},
+    "timeInterval": {"start": "2026-07-09T09:00:00Z", "end": "2026-07-09T10:00:00Z"}
+  },
+  {
+    "id": "a2",
+    "description": "Write report",
+    "projectId": "p2",
+    "taskId": "t1",
+    "tagIds": ["tag1"],
+    "project": {"name": "Docs"},
+    "timeInterval": {"start": "2026-07-08T09:00:00Z", "end": "2026-07-08T10:00:00Z"}
+  },
+  {
+    "id": "c1",
+    "description": "",
+    "projectId": null,
+    "taskId": null,
+    "tagIds": [],
+    "project": null,
+    "timeInterval": {"start": "2026-07-08T11:00:00Z", "end": "2026-07-08T11:30:00Z"}
+  },
+  {
+    "id": "d2",
+    "description": "12345678901234567890123456789",
+    "projectId": null,
+    "taskId": null,
+    "tagIds": [],
+    "project": null,
+    "timeInterval": {"start": "2026-07-07T11:00:00Z", "end": "2026-07-07T12:00:00Z"}
+  }
+]

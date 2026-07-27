@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "heartbeat",
+      "name": "Heartbeat",
+      "description": "Reference plugin - a live clock item proving the runtime.",
+      "version": "0.1.0",
+      "download_url": "https://github.com/ridge-bar/widgets/archive/refs/heads/main.tar.gz",
+      "category": "reference",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "battery",
+      "name": "Battery",
+      "description": "Battery charge-level glyph with threshold color and a details popup.",
+      "version": "0.1.0",
+      "download_url": "https://github.com/ridge-bar/widgets/archive/refs/heads/main.tar.gz",
+      "category": "system",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "clock",
+      "name": "Clock",
+      "description": "A menu-bar clock; clicking it opens macOS Notification Center.",
+      "version": "0.1.0",
+      "download_url": "https://github.com/ridge-bar/widgets/archive/refs/heads/main.tar.gz",
+      "category": "info",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "weather",
+      "name": "Weather",
+      "description": "Condition glyph + temperature from wttr.in, with a current-conditions/3-day-forecast popup.",
+      "version": "0.1.0",
+      "download_url": "https://github.com/ridge-bar/widgets/archive/refs/heads/main.tar.gz",
+      "category": "info",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "cpu",
+      "name": "CPU",
+      "description": "CPU usage bar-block glyph with threshold color and a top-processes popup.",
+      "version": "0.1.0",
+      "download_url": "https://github.com/ridge-bar/widgets/archive/refs/heads/main.tar.gz",
+      "category": "system",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "memory",
+      "name": "Memory",
+      "description": "Memory usage bar-block glyph with threshold color and a top-processes popup.",
+      "version": "0.1.0",
+      "download_url": "https://github.com/ridge-bar/widgets/archive/refs/heads/main.tar.gz",
+      "category": "system",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "aerospace_workspaces",
+      "name": "AeroSpace Workspaces",
+      "description": "Dynamic per-monitor AeroSpace workspace pills with glyphs, focus, and click-to-switch.",
+      "version": "0.1.0",
+      "download_url": "https://github.com/ridge-bar/widgets/archive/refs/heads/main.tar.gz",
+      "category": "workspace",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "aerospace_apps",
+      "name": "AeroSpace Apps",
+      "description": "Center window/app list for the focused AeroSpace workspace, icon+label, click-to-focus.",
+      "version": "0.1.0",
+      "download_url": "https://github.com/ridge-bar/widgets/archive/refs/heads/main.tar.gz",
+      "category": "workspace",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

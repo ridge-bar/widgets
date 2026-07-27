@@ -1,0 +1,36 @@
+name: clockify
+version: 0.1.0
+description: Clockify time-tracking status (running/idle) with start/stop and a resume-recent-task popup
+executable: ./clockify.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: clockify.
+permissions:
+  ops: [add, set, remove, popup]
+settings:
+  region: "right"
+  font: "Iosevka Nerd Font"
+  interval: "30"
+  token_file: ""
+  max_rows: "10"
+  request_timeout: "8"
+  tracking_color: "theme:success"
+  idle_color: "theme:warning"
+  warn_color: "theme:secondary"
+  icon_color: "#12161D"
+  corner_radius: ""
+  bg_height: ""
+settings_schema:
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  interval: { type: number, min: 10, max: 300, step: 10 }
+  token_file: { type: string }
+  max_rows: { type: number, min: 1, max: 10, step: 1 }
+  request_timeout: { type: number, min: 3, max: 30, step: 1 }
+  tracking_color: { type: color }
+  idle_color: { type: color }
+  warn_color: { type: color }
+  icon_color: { type: color }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }

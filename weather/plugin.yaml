@@ -1,0 +1,52 @@
+name: weather
+version: 0.1.0
+description: Condition glyph + temperature from wttr.in, with a current-conditions/3-day-forecast popup
+executable: ./weather.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: weather.
+permissions:
+  ops: [add, set, remove, popup]
+settings:
+  location: "Szeged"
+  interval: "1800"
+  region: "right"
+  font: "Iosevka Nerd Font"
+  thunder_color: "theme:error"
+  snow_color: "theme:primary"
+  sleet_color: "theme:system"
+  rain_color: "theme:system"
+  fog_color: "theme:secondary"
+  overcast_color: "theme:secondary"
+  cloud_color: "theme:secondary"
+  sunny_color: "theme:warning"
+  default_color: "theme:system"
+  label_color: "theme:primary"
+  bg_color: "theme:background"
+  rain_bg_color: "theme:system"
+  storm_bg_color: "theme:error"
+  highlight_text_color: "#12161D"
+  corner_radius: ""
+  bg_height: ""
+settings_schema:
+  location: { type: string }
+  interval: { type: number, min: 60, max: 7200, step: 60 }
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  thunder_color: { type: color }
+  snow_color: { type: color }
+  sleet_color: { type: color }
+  rain_color: { type: color }
+  fog_color: { type: color }
+  overcast_color: { type: color }
+  cloud_color: { type: color }
+  sunny_color: { type: color }
+  default_color: { type: color }
+  label_color: { type: color }
+  bg_color: { type: color }
+  rain_bg_color: { type: color }
+  storm_bg_color: { type: color }
+  highlight_text_color: { type: color }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "e1",
+    "description": "Read emails",
+    "projectId": "p3",
+    "taskId": null,
+    "tagIds": [],
+    "project": {"name": "Inbox"},
+    "timeInterval": {"start": "2026-07-09T08:00:00Z", "end": "2026-07-09T08:20:00Z"}
+  }
+]

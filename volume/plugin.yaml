@@ -1,0 +1,42 @@
+name: volume
+version: 0.1.0
+description: Output/input audio volume glyph with mute, sliders, and device switching in a popup
+executable: ./volume.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: volume.
+permissions:
+  ops: [add, set, remove, popup]
+settings:
+  region: "right"
+  font: "Iosevka Nerd Font"
+  interval: "5"
+  icon_color: "theme:primary"
+  bg_color: "theme:background"
+  muted_color: "theme:error"
+  low_icon: "󰕿"
+  mid_icon: "󰖀"
+  high_icon: "󰕾"
+  muted_icon: "󰖁"
+  device_active_color: "theme:success"
+  betterdisplay_enabled: "false"
+  betterdisplay_name: ""
+  corner_radius: ""
+  bg_height: ""
+settings_schema:
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  interval: { type: number, min: 1, max: 60, step: 1 }
+  icon_color: { type: color }
+  bg_color: { type: color }
+  muted_color: { type: color }
+  low_icon: { type: string }
+  mid_icon: { type: string }
+  high_icon: { type: string }
+  muted_icon: { type: string }
+  device_active_color: { type: color }
+  betterdisplay_enabled: { type: bool }
+  betterdisplay_name: { type: string }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }

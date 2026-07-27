@@ -1,0 +1,40 @@
+name: mindfulness
+version: 0.1.0
+description: Periodic mindfulness reminder with a countdown, pulse-and-bell alert, and settings popup
+executable: ./mindfulness.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: mindfulness.
+permissions:
+  ops: [add, set, remove, popup, queryPopup]
+settings:
+  region: "right"
+  font: "Iosevka Nerd Font"
+  poll_counting: "10"
+  poll_pulse: "1"
+  poll_disabled: "30"
+  default_interval: "15"
+  default_volume: "100"
+  enabled_color: "theme:success"
+  disabled_color: "theme:warning"
+  pulse_color: "theme:error"
+  icon_color: "#12161D"
+  bell_sound: "/System/Library/Sounds/Submarine.aiff"
+  corner_radius: ""
+  bg_height: ""
+settings_schema:
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  poll_counting: { type: number, min: 1, max: 300, step: 1 }
+  poll_pulse: { type: number, min: 1, max: 300, step: 1 }
+  poll_disabled: { type: number, min: 1, max: 300, step: 1 }
+  default_interval: { type: number, min: 1, max: 60, step: 1 }
+  default_volume: { type: number, min: 0, max: 100, step: 5 }
+  enabled_color: { type: color }
+  disabled_color: { type: color }
+  pulse_color: { type: color }
+  icon_color: { type: color }
+  bell_sound: { type: string }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }

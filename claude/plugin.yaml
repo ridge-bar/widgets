@@ -1,0 +1,40 @@
+name: claude
+version: 0.1.0
+description: Active Claude Code sessions/subagents with a working-state tint and a details popup (sessions, subagents, token usage)
+executable: ./claude.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: claude.
+permissions:
+  ops: [add, set, remove, popup]
+settings:
+  region: "right"
+  font: "Iosevka Nerd Font"
+  interval: "10"
+  projects_dir: ""
+  process_pattern: "local/bin/claude"
+  idle_icon_color: "theme:warning"
+  busy_icon_color: "#12161D"
+  idle_bg_color: "theme:background"
+  busy_bg_color: "theme:success"
+  corner_radius: ""
+  bg_height: ""
+  max_sessions: "5"
+  max_subagents: "4"
+  cache_stale_seconds: "300"
+settings_schema:
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  interval: { type: number, min: 5, max: 300, step: 5 }
+  projects_dir: { type: string }
+  process_pattern: { type: string }
+  idle_icon_color: { type: color }
+  busy_icon_color: { type: color }
+  idle_bg_color: { type: color }
+  busy_bg_color: { type: color }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }
+  max_sessions: { type: number, min: 1, max: 10, step: 1 }
+  max_subagents: { type: number, min: 1, max: 10, step: 1 }
+  cache_stale_seconds: { type: number, min: 30, max: 3600, step: 30 }

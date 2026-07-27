@@ -1,0 +1,4 @@
+{
+  "ClientBundleIdentifier" : "com.spotify.client",
+  "Title" : "Random Access Memories"
+}

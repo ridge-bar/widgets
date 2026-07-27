@@ -1,0 +1,30 @@
+name: amphetamine
+version: 0.1.0
+description: Toggle an Amphetamine session (keep the Mac awake) from the bar
+executable: ./amphetamine.sh
+autostart: false
+restart:
+  mode: on-failure
+owns: amphetamine.
+permissions:
+  ops: [add, set, remove]
+settings:
+  interval: "5"
+  region: "right"
+  font: "Iosevka Nerd Font"
+  on_color: "theme:success"
+  off_color: "theme:warning"
+  glyph_color: "#12161D"
+  warn_color: "theme:warning"
+  corner_radius: ""
+  bg_height: ""
+settings_schema:
+  interval: { type: number, min: 1, max: 60, step: 1 }
+  region: { type: enum, options: [left, center, right] }
+  font: { type: string }
+  on_color: { type: color }
+  off_color: { type: color }
+  glyph_color: { type: color }
+  warn_color: { type: color }
+  corner_radius: { type: number, min: 0, max: 30, step: 1 }
+  bg_height: { type: number, min: 16, max: 48, step: 1 }

@@ -1,0 +1,48 @@
+name: aerospace_apps
+version: 0.1.0
+description: Center window/app list for the focused AeroSpace workspace, icon+label, click-to-focus
+executable: ./aerospace-apps-plugin.sh
+autostart: false
+restart:
+  mode: always
+owns: aerospace_apps.
+permissions:
+  ops: [add, set, remove, move, bracket, query, brackets]
+settings:
+  region: "center"
+  bg_color: "theme:background"
+  glyph_color: "theme:secondary"
+  glyph_focused_color: "theme:primary"
+  border_focused_color: "theme:system"
+  border_width: "2"
+  corner_radius: ""
+  height: ""
+  pad_left: "8"
+  pad_right: "8"
+  bubble_margin: "6"          # gap between adjacent app bubbles (matches workspace pills)
+  max: "8"                    # max windows drawn in the list, per monitor
+  font: "Iosevka Nerd Font"        # bar font for app-name labels ("" = bar default)
+  app_font: "sketchybar-app-font"  # app-glyph ligature font (github.com/kvndrsslr/sketchybar-app-font)
+  app_font_style: "Regular"
+  app_font_size: "14"         # sketchybar itself typically uses ~13; tunable
+  update_mode: "subscribe"    # "subscribe" (aerospace subscribe), "trigger" (ridge trigger aerospace_apps), or "poll"
+  poll_interval: "2"          # seconds between reconciles in poll mode
+settings_schema:
+  region: { type: enum, options: [left, center, right] }
+  bg_color: { type: color }
+  glyph_color: { type: color }
+  glyph_focused_color: { type: color }
+  border_focused_color: { type: color }
+  border_width: { type: number, min: 0, max: 8 }
+  corner_radius: { type: number, min: 0, max: 30 }
+  height: { type: number, min: 16, max: 48 }
+  pad_left: { type: number, min: 0, max: 40 }
+  pad_right: { type: number, min: 0, max: 40 }
+  bubble_margin: { type: number, min: 0, max: 40 }
+  max: { type: number, min: 1, max: 20, step: 1 }
+  font: { type: string }
+  app_font: { type: string }
+  app_font_style: { type: string }
+  app_font_size: { type: number, min: 8, max: 32 }
+  update_mode: { type: enum, options: [subscribe, trigger, poll] }
+  poll_interval: { type: number, min: 0.2, max: 10, step: 0.1 }
