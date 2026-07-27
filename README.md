@@ -61,6 +61,23 @@ into `~/.config/ridge/plugins/` by hand.
 Both the catalog fetch and the artifact download reject plain HTTP and any redirect to a non-https
 URL.
 
+## Placement
+
+Where a widget's items sit on the bar is the host's decision, not the widget's. A widget ships a
+sensible default and passes it as `--region` on `ridge add`, but `ridge.yaml` overrides it:
+
+```yaml
+plugins:
+  - name: aerospace_workspaces
+    enabled: true
+    region: left
+    items:
+      aerospace_ws.status: right   # per-item, for widgets whose items differ
+```
+
+Do not add a `region` setting to a widget. It would appear in the Settings UI as a control the host
+config silently overrides.
+
 ## Versioning
 
 Each widget carries its own version in its `plugin.yaml` and is released independently, so fixing

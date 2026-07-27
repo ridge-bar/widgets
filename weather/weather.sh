@@ -27,7 +27,9 @@ load_settings() {
   # Empty is the default and means "let wttr.in geo-IP the request", so the
   # widget works anywhere without configuration.
   SETTING_location="$(jq -r '.location // ""' <<<"$json")"
-  SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="right"
   # Icon font: the weather condition glyph (set via `ridge set --icon`) is
   # a Nerd Font glyph, so it renders as tofu in the system default font
   # unless a Nerd Font family is set at `ridge add` time.

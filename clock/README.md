@@ -38,15 +38,13 @@ warning is logged once per failure streak to help diagnose a missing grant.
    plugins:
      - name: clock
        enabled: true
-       settings:
-         region: "right"
+       region: right          # placement is set here, not in settings
    ```
 
 ## Settings
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Item font. |
 | `time_format` | `%H:%M:%S` | `date`-style format for the clock text. |
 | `time_interval` | `1` | Seconds between clock updates. Non-numeric or zero-equivalent falls back to `1`. |

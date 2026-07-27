@@ -1,5 +1,5 @@
 name: aerospace_apps
-version: 0.1.0
+version: 0.2.0
 description: Center window/app list for the focused AeroSpace workspace, icon+label, click-to-focus
 executable: ./aerospace-apps-plugin.sh
 autostart: false
@@ -9,7 +9,6 @@ owns: aerospace_apps.
 permissions:
   ops: [add, set, remove, move, bracket, query, brackets]
 settings:
-  region: "center"
   bg_color: "theme:background"
   glyph_color: "theme:secondary"
   glyph_focused_color: "theme:primary"
@@ -28,7 +27,6 @@ settings:
   update_mode: "subscribe"    # "subscribe" (aerospace subscribe), "trigger" (ridge trigger aerospace_apps), or "poll"
   poll_interval: "2"          # seconds between reconciles in poll mode
 settings_schema:
-  region: { type: enum, options: [left, center, right] }
   bg_color: { type: color }
   glyph_color: { type: color }
   glyph_focused_color: { type: color }

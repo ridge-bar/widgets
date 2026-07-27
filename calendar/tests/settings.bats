@@ -37,9 +37,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","font":"MyFont","max_meetings":"5"}' >"$f"
+  printf '%s' '{"font":"MyFont","max_meetings":"5"}' >"$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_font" = "MyFont" ]
   [ "$SETTING_max_meetings" = "5" ]
   [ "$SETTING_date_interval" = "30" ]  # untouched key keeps default

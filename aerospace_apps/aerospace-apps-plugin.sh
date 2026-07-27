@@ -116,7 +116,9 @@ load_settings() {
     json="$(cat "${RIDGE_PLUGIN_SETTINGS}")"
   fi
   # Region for the center window-list widget.
-  SETTING_region="$(jq -r '.region // "center"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="center"
   # Font for app-glyph ligatures; these only resolve to icon glyphs in a font
   # that defines the ligatures. Empty (the default) -> app icons render as
   # literal ":app_name:" text.

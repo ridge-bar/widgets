@@ -61,7 +61,6 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 | Key | Default | Description |
 |---|---|---|
 | `interval` | `5` | Seconds between polls of `pmset -g assertions`. |
-| `region` | `right` | Bar region for the toggle item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `on_color` | `theme:success` | Background color while a session is active. |
 | `off_color` | `theme:warning` | Background color while no session is active. |

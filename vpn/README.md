@@ -53,7 +53,6 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `interval` | `3` | Seconds between polls. Non-numeric or zero-equivalent falls back to `3`. |
 | `netbird_bin` | (empty - `command -v netbird` at runtime) | Path to the `netbird` binary. Empty resolves via `command -v`, falling back to `/opt/homebrew/bin/netbird`. |

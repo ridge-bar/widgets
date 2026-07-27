@@ -58,7 +58,6 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `interval` | `5` | Seconds between polls; also the popup process-row refresh cadence while open. Non-numeric or zero falls back to `5`. |
 | `warn_threshold` | `75` | Percent at/above which `warn_color` is used. |

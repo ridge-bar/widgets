@@ -1,5 +1,5 @@
 name: claude
-version: 0.1.0
+version: 0.2.0
 description: Active Claude Code sessions/subagents with a working-state tint and a details popup (sessions, subagents, token usage)
 executable: ./claude.sh
 autostart: false
@@ -9,7 +9,6 @@ owns: claude.
 permissions:
   ops: [add, set, remove, popup]
 settings:
-  region: "right"
   font: "Iosevka Nerd Font"
   interval: "10"
   projects_dir: ""
@@ -24,7 +23,6 @@ settings:
   max_subagents: "4"
   cache_stale_seconds: "300"
 settings_schema:
-  region: { type: enum, options: [left, center, right] }
   font: { type: string }
   interval: { type: number, min: 5, max: 300, step: 5 }
   projects_dir: { type: string }

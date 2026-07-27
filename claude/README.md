@@ -50,7 +50,6 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `interval` | `10` | Seconds between polls. Non-numeric or zero-equivalent falls back to `10`. |
 | `projects_dir` | `~/.claude/projects` | Directory of Claude Code transcript files (YAML can't expand `$HOME`, so this is applied at runtime). |

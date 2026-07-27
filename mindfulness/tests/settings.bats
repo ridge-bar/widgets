@@ -56,9 +56,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","poll_counting":"20","default_interval":"25","default_volume":"50","enabled_color":"#123456"}' > "$f"
+  printf '%s' '{"poll_counting":"20","default_interval":"25","default_volume":"50","enabled_color":"#123456"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_poll_counting" = "20" ]
   [ "$SETTING_default_interval" = "25" ]
   [ "$SETTING_default_volume" = "50" ]

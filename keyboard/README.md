@@ -41,8 +41,7 @@ TIS helper is preferred.
    plugins:
      - name: keyboard
        enabled: true
-       settings:
-         region: "right"
+       region: right          # placement is set here, not in settings
    ```
 
 ## Settings
@@ -50,7 +49,6 @@ TIS helper is preferred.
 | Key | Default | Description |
 |---|---|---|
 | `interval` | `1` | Seconds between polls. Non-numeric or zero falls back to `1`. |
-| `region` | `right` | Bar region for the flag item. |
 | `bg_color` | `theme:background` | Pill background color (matching aerospace). |
 | `corner_radius` | _(unset)_ | Pill corner radius; unset inherits the bar's global `item_corner_radius`. |
 | `bg_height` | _(auto)_ | Pill height; adapts to the bar height unless set. |

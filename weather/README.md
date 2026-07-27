@@ -36,9 +36,9 @@ clobbering the bar.
    plugins:
      - name: weather
        enabled: true
+       region: right          # placement is set here, not in settings
        settings:
          location: "Budapest"
-         region: "right"
    ```
 
 ## Settings
@@ -47,7 +47,6 @@ clobbering the bar.
 |---|---|---|
 | `location` | empty | wttr.in location query; URL-encoded before the request. Empty means wttr.in geo-IPs the request, and the popup title shows the resolved area. |
 | `interval` | `1800` | Seconds between poll/refresh attempts. Non-numeric or zero-equivalent falls back to `1800`. |
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `thunder_color` | `theme:error` | Icon color for thunder conditions. |
 | `snow_color` | `theme:primary` | Icon color for snow/blizzard. |

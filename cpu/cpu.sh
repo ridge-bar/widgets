@@ -25,7 +25,9 @@ load_settings() {
   if [[ -n "${RIDGE_PLUGIN_SETTINGS:-}" && -f "${RIDGE_PLUGIN_SETTINGS}" ]]; then
     json="$(cat "${RIDGE_PLUGIN_SETTINGS}")"
   fi
-  SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="right"
   # Icon font: the CPU bar-block glyph is set via `ridge set --icon` in the
   # poll loop; a Nerd Font family must be set at `ridge add` time so glyphs
   # set later don't render as tofu in the system default font.

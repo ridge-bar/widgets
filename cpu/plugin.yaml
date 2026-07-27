@@ -1,5 +1,5 @@
 name: cpu
-version: 0.1.0
+version: 0.2.0
 description: CPU usage bar-block glyph with threshold color and a top-processes popup
 executable: ./cpu.sh
 autostart: false
@@ -9,7 +9,6 @@ owns: cpu.
 permissions:
   ops: [add, set, remove, popup, query]
 settings:
-  region: "right"
   font: "Iosevka Nerd Font"
   interval: "5"
   warn_threshold: "75"
@@ -21,7 +20,6 @@ settings:
   corner_radius: ""
   bg_height: ""
 settings_schema:
-  region: { type: enum, options: [left, center, right] }
   font: { type: string }
   interval: { type: number, min: 1, max: 60, step: 1 }
   warn_threshold: { type: number, min: 1, max: 100, step: 1 }

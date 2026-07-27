@@ -1,5 +1,5 @@
 name: mindfulness
-version: 0.1.0
+version: 0.2.0
 description: Periodic mindfulness reminder with a countdown, pulse-and-bell alert, and settings popup
 executable: ./mindfulness.sh
 autostart: false
@@ -9,7 +9,6 @@ owns: mindfulness.
 permissions:
   ops: [add, set, remove, popup, queryPopup]
 settings:
-  region: "right"
   font: "Iosevka Nerd Font"
   poll_counting: "10"
   poll_pulse: "1"
@@ -24,7 +23,6 @@ settings:
   corner_radius: ""
   bg_height: ""
 settings_schema:
-  region: { type: enum, options: [left, center, right] }
   font: { type: string }
   poll_counting: { type: number, min: 1, max: 300, step: 1 }
   poll_pulse: { type: number, min: 1, max: 300, step: 1 }

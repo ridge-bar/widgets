@@ -88,7 +88,6 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `interval` | `5` | Seconds between polls. Non-numeric or zero falls back to `5`. |
 | `icon_color` | `theme:primary` | Icon/label color while unmuted and above 0%. |

@@ -18,7 +18,9 @@ load_settings() {
   if [[ -n "${RIDGE_PLUGIN_SETTINGS:-}" && -f "${RIDGE_PLUGIN_SETTINGS}" ]]; then
     json="$(cat "${RIDGE_PLUGIN_SETTINGS}")"
   fi
-  SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="right"
   SETTING_interval="$(jq -r '.interval // "1"' <<<"$json")"
   [[ "$SETTING_interval" =~ ^[0-9]*\.?[0-9]+$ && -n "${SETTING_interval//[.0]/}" ]] || SETTING_interval="1"
   # Pill background, matching aerospace's workspace bubbles.

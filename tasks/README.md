@@ -61,7 +61,6 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `interval` | `60` | Seconds between polls. Non-numeric or zero-equivalent falls back to `60`. |
 | `things_enabled` | `true` | Query Things3's "Today" list. |

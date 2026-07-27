@@ -32,7 +32,9 @@ load_settings() {
   if [[ -n "${RIDGE_PLUGIN_SETTINGS:-}" && -f "${RIDGE_PLUGIN_SETTINGS}" ]]; then
     json="$(cat "${RIDGE_PLUGIN_SETTINGS}")"
   fi
-  SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="right"
   # Icon font: TASKS_GLYPH is a Nerd Font glyph, so it renders as tofu in
   # the system default font unless a Nerd Font family is set at `ridge add` time.
   SETTING_font="$(jq -r '.font // "Iosevka Nerd Font"' <<<"$json")"

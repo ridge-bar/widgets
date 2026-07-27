@@ -64,9 +64,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","interval":"5","show_label":"false","label_max_length":"50","idle_icon":"X","idle_color":"#000001","playing_icon":"Y","playing_icon_color":"#000002","playing_bg_color":"#000003","paused_icon":"Z","paused_icon_color":"#000004","paused_bg_color":"#000005"}' > "$f"
+  printf '%s' '{"interval":"5","show_label":"false","label_max_length":"50","idle_icon":"X","idle_color":"#000001","playing_icon":"Y","playing_icon_color":"#000002","playing_bg_color":"#000003","paused_icon":"Z","paused_icon_color":"#000004","paused_bg_color":"#000005"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_interval" = "5" ]
   [ "$SETTING_show_label" = "false" ]
   [ "$SETTING_label_max_length" = "50" ]

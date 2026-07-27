@@ -100,7 +100,9 @@ load_settings() {
   if [[ -n "${RIDGE_PLUGIN_SETTINGS:-}" && -f "${RIDGE_PLUGIN_SETTINGS}" ]]; then
     json="$(cat "${RIDGE_PLUGIN_SETTINGS}")"
   fi
-  SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="right"
   SETTING_font="$(jq -r '.font // "Iosevka Nerd Font"' <<<"$json")"
   [[ -n "$SETTING_font" ]] || SETTING_font="Iosevka Nerd Font"
   SETTING_time_format="$(jq -r '.time_format // "%H:%M:%S"' <<<"$json")"

@@ -9,7 +9,6 @@ owns: calendar.
 permissions:
   ops: [add, set, remove, popup]
 settings:
-  region: "right"
   font: "Iosevka Nerd Font"
   date_format: "%a %d/%m/%Y"
   date_interval: "30"
@@ -28,7 +27,6 @@ settings:
   row_icon_color: "theme:secondary"
   in_progress_color: "theme:success"
 settings_schema:
-  region: { type: enum, options: [left, center, right] }
   font: { type: string }
   date_format: { type: string }
   date_interval: { type: number, min: 5, max: 300, step: 5 }

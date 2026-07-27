@@ -72,7 +72,6 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `interval` | `30` | Seconds between polls. Non-numeric or zero-equivalent falls back to `30`. |
 | `token_file` | `~/.config/ridge/.clockify_token` | Path to the Clockify API token file. Never put the token in this setting's value directly - `ridge.yaml` is plain text on disk. |

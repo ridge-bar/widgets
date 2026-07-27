@@ -23,9 +23,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","interval":"60","token_file":"/tmp/mytoken","max_rows":"5","request_timeout":"15","tracking_color":"#111111","idle_color":"#222222","warn_color":"#333333","icon_color":"#444444"}' > "$f"
+  printf '%s' '{"interval":"60","token_file":"/tmp/mytoken","max_rows":"5","request_timeout":"15","tracking_color":"#111111","idle_color":"#222222","warn_color":"#333333","icon_color":"#444444"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_interval" = "60" ]
   [ "$SETTING_token_file" = "/tmp/mytoken" ]
   [ "$SETTING_max_rows" = "5" ]

@@ -46,7 +46,9 @@ load_settings() {
   if [[ -n "${RIDGE_PLUGIN_SETTINGS:-}" && -f "${RIDGE_PLUGIN_SETTINGS}" ]]; then
     json="$(cat "${RIDGE_PLUGIN_SETTINGS}")"
   fi
-  SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="right"
   # Icon font: the idle/playing/paused icons are Nerd Font glyphs, so they
   # render as tofu in the system default font unless a Nerd Font family
   # is set at `ridge add` time.

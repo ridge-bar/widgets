@@ -27,9 +27,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","font":"MyFont","time_format":"%I:%M %p"}' >"$f"
+  printf '%s' '{"font":"MyFont","time_format":"%I:%M %p"}' >"$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_font" = "MyFont" ]
   [ "$SETTING_time_format" = "%I:%M %p" ]
   [ "$SETTING_time_interval" = "1" ]  # untouched key keeps default

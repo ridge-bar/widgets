@@ -69,15 +69,13 @@ Timestamps in the database are in the CoreData epoch (seconds since
    plugins:
      - name: calendar
        enabled: true
-       settings:
-         region: "right"
+       region: right          # placement is set here, not in settings
    ```
 
 ## Settings
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the date glyph to render. |
 | `date_format` | `%a %d/%m/%Y` | `date`-style format for the date item. |
 | `date_interval` | `30` | Seconds between date/busy/popup refreshes. Non-numeric or zero-equivalent falls back to `30`. |

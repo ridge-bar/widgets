@@ -109,9 +109,13 @@ load_settings() {
   SETTING_focused_color="$(jq -r '.focused_color // "#7AA2F7"' <<<"$json")"
   SETTING_normal_color="$(jq -r '.normal_color // "#C0CAF5"' <<<"$json")"
   SETTING_bg_color="$(jq -r '.bg_color // "theme:background"' <<<"$json")"
-  SETTING_region="$(jq -r '.region // "left"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="left"
   # Region for the aerospace_ws.status "AeroSpace down" warning item.
-  SETTING_status_region="$(jq -r '.status_region // "right"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_status_region="right"
   SETTING_show_empty="$(jq -r '.show_empty_workspaces // false' <<<"$json")"
   # Font for the pills (e.g. a patched Nerd Font family) so app glyphs render.
   # Empty -> no --font passed (the item uses ridge's bar.font/system default).

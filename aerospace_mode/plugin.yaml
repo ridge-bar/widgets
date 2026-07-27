@@ -1,5 +1,5 @@
 name: aerospace_mode
-version: 0.1.0
+version: 0.2.0
 description: AeroSpace binding-mode badge (attention-colored pill, hidden in 'main' mode), placed beside the workspace strip
 executable: ./aerospace_mode.sh
 autostart: false
@@ -13,7 +13,6 @@ permissions:
   # absolute front of the region ahead of everything else (TASK-90).
   anchors: [aerospace_ws.]
 settings:
-  region: "left"
   font: "Iosevka Nerd Font"
   bg_color: "theme:warning"
   icon_color: "#12161D"
@@ -24,7 +23,6 @@ settings:
   padding_right: "8"
   state_file: ""
 settings_schema:
-  region: { type: enum, options: [left, center, right] }
   font: { type: string }
   bg_color: { type: color }
   icon_color: { type: color }

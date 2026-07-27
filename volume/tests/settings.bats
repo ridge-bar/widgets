@@ -64,9 +64,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","icon_color":"#123456","betterdisplay_enabled":"true","betterdisplay_name":"AW3423DWF"}' > "$f"
+  printf '%s' '{"icon_color":"#123456","betterdisplay_enabled":"true","betterdisplay_name":"AW3423DWF"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_icon_color" = "#123456" ]
   [ "$SETTING_betterdisplay_enabled" = "true" ]
   [ "$SETTING_betterdisplay_name" = "AW3423DWF" ]

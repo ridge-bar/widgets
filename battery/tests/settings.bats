@@ -60,9 +60,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","warn_threshold":"30","normal_color":"#123456"}' > "$f"
+  printf '%s' '{"warn_threshold":"30","normal_color":"#123456"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_warn_threshold" = "30" ]
   [ "$SETTING_normal_color" = "#123456" ]
   [ "$SETTING_crit_threshold" = "10" ]   # untouched key keeps default

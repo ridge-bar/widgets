@@ -96,7 +96,6 @@ Add the matching `exec-and-forget` line to every other binding in
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `left` | Bar region for the badge. |
 | `font` | `Iosevka Nerd Font` | Font for the gear glyph + label (add-time only). |
 | `bg_color` | `theme:warning` | Pill background (attention hue - the badge signals a non-default mode). |
 | `icon_color` | `#12161D` | Gear glyph color (fixed dark ink for contrast on the attention bg). |

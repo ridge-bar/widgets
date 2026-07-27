@@ -60,9 +60,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","connected_color":"#123456","off_color":"#654321"}' > "$f"
+  printf '%s' '{"connected_color":"#123456","off_color":"#654321"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_connected_color" = "#123456" ]
   [ "$SETTING_off_color" = "#654321" ]
   [ "$SETTING_unknown_color" = "theme:warning" ]   # untouched key keeps default

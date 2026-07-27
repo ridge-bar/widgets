@@ -83,9 +83,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","things_enabled":"false","obsidian_vault":"MyVault","noteplan_dir":"/custom/np","obsidian_inbox_dir":"/custom/inbox"}' > "$f"
+  printf '%s' '{"things_enabled":"false","obsidian_vault":"MyVault","noteplan_dir":"/custom/np","obsidian_inbox_dir":"/custom/inbox"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_things_enabled" = "false" ]
   [ "$SETTING_obsidian_vault" = "MyVault" ]
   [ "$SETTING_noteplan_dir" = "/custom/np" ]

@@ -37,9 +37,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","cpu_color":"#123456"}' > "$f"
+  printf '%s' '{"cpu_color":"#123456"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_cpu_color" = "#123456" ]
   [ "$SETTING_warn_color" = "theme:warning" ]   # untouched key keeps default
   rm -f "$f"

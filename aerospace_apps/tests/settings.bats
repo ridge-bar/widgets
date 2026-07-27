@@ -47,11 +47,10 @@ setup() {
   rm -f "$f"
 }
 
-@test "load_settings overrides region and border color" {
+@test "load_settings overrides the border color" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"right","border_focused_color":"#BB9AF7"}' > "$f"
+  printf '%s' '{"border_focused_color":"#BB9AF7"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "right" ]
   [ "$SETTING_border_focused_color" = "#BB9AF7" ]
   rm -f "$f"
 }

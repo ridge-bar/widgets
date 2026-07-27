@@ -61,8 +61,6 @@ Colors and dimensions are in [Styling](#styling) below.
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `left` | Bar region for workspace bubbles. |
-| `status_region` | `right` | Bar region for the `aerospace_ws.status` "AeroSpace down" warning item. |
 | `show_empty_workspaces` | `false` | Show workspaces with no windows (unless focused/visible, which always show). |
 | `font` | `Iosevka Nerd Font` | Font for the bar's own text (workspace numbers). Empty uses ridge's default (system) font. |
 | `font_size` | unset | Optional point size for `font`. |

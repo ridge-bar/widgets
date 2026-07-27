@@ -70,10 +70,9 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"location":"Budapest","region":"left"}' >"$f"
+  printf '%s' '{"location":"Budapest"}' >"$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
   [ "$SETTING_location" = "Budapest" ]
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_interval" = "1800" ]  # untouched key keeps default
   rm -f "$f"
 }

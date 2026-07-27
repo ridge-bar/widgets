@@ -23,7 +23,9 @@ load_settings() {
   # zeros leaves nothing iff the value is zero-equivalent.
   SETTING_interval="$(jq -r '.interval // "120"' <<<"$json")"
   [[ "$SETTING_interval" =~ ^[0-9]*\.?[0-9]+$ && -n "${SETTING_interval//[.0]/}" ]] || SETTING_interval="120"
-  SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="right"
   # Icon font: the battery charge glyph (set via `ridge set --icon` in the
   # poll loop) is a Nerd Font glyph, so it renders as tofu in the system
   # default font unless a Nerd Font family is set at `ridge add` time.

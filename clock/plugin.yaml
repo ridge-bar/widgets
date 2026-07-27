@@ -1,5 +1,5 @@
 name: clock
-version: 0.1.0
+version: 0.2.0
 description: A menu-bar clock; clicking it opens macOS Notification Center
 executable: ./clock.sh
 autostart: false
@@ -9,7 +9,6 @@ owns: clock.
 permissions:
   ops: [add, set, remove]
 settings:
-  region: "right"
   font: "Iosevka Nerd Font"
   time_format: "%H:%M:%S"
   time_interval: "1"
@@ -18,7 +17,6 @@ settings:
   corner_radius: ""
   bg_height: ""
 settings_schema:
-  region: { type: enum, options: [left, center, right] }
   font: { type: string }
   time_format: { type: string }
   time_interval: { type: number, min: 1, max: 60, step: 1 }

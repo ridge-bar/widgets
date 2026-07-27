@@ -57,7 +57,6 @@ Colors and dimensions are in [Styling](#styling) below.
 
 | Key | Default | Description |
 |---|---|---|
-| `region` | `center` | Bar region for the window list. |
 | `max` | `8` | Max windows drawn, per monitor. |
 | `font` | `Iosevka Nerd Font` | Bar font for app-name labels (empty = bar default). |
 | `app_font` | _(empty)_ | Font for app-icon ligatures (current-window icon). Must be set for icons to render; otherwise glyphs show as literal `:app_name:` text. |

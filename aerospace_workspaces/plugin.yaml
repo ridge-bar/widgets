@@ -1,5 +1,5 @@
 name: aerospace_workspaces
-version: 0.1.0
+version: 0.2.0
 description: Dynamic per-monitor AeroSpace workspace pills, glyphs, focus, click-to-switch
 executable: ./aerospace-workspaces-plugin.sh
 autostart: false
@@ -24,8 +24,6 @@ settings:
   bubble_margin: "6"
   border_focused_color: "theme:system"
   border_width: "2"
-  region: "left"
-  status_region: "right"     # region for the aerospace_ws.status "AeroSpace down" warning item
   app_font: ""                # app-glyph ligature font name; must be set for icons to render
   app_font_style: "Regular"
   app_font_size: "14"         # tunable
@@ -50,8 +48,6 @@ settings_schema:
   bubble_margin: { type: number, min: 0, max: 40 }
   border_focused_color: { type: color }
   border_width: { type: number, min: 0, max: 8 }
-  region: { type: enum, options: [left, center, right] }
-  status_region: { type: enum, options: [left, center, right] }
   app_font: { type: string }
   app_font_style: { type: string }
   app_font_size: { type: number, min: 8, max: 32 }

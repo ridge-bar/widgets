@@ -1,5 +1,5 @@
 name: media
-version: 0.1.0
+version: 0.2.0
 description: Now-playing media controls (title/artist, play/pause/skip/seek) with a details popup
 executable: ./media.sh
 autostart: false
@@ -9,7 +9,6 @@ owns: media.
 permissions:
   ops: [add, set, remove, popup]
 settings:
-  region: "right"
   font: "Iosevka Nerd Font"
   interval: "3"
   show_label: "true"
@@ -25,7 +24,6 @@ settings:
   corner_radius: ""
   bg_height: ""
 settings_schema:
-  region: { type: enum, options: [left, center, right] }
   font: { type: string }
   interval: { type: number, min: 1, max: 60, step: 1 }
   show_label: { type: bool }

@@ -45,7 +45,6 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 | Key | Default | Description |
 |---|---|---|
 | `interval` | `120` | Seconds between polls. Non-numeric or zero falls back to `120`. |
-| `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `warn_threshold` | `20` | Percent below which `warn_color` is used. |
 | `crit_threshold` | `10` | Percent below which `crit_color` is used. |

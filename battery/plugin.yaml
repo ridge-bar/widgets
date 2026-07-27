@@ -1,5 +1,5 @@
 name: battery
-version: 0.1.0
+version: 0.2.0
 description: Battery charge-level glyph with threshold color and a details popup
 executable: ./battery.sh
 autostart: false
@@ -10,7 +10,6 @@ permissions:
   ops: [add, set, remove, popup]
 settings:
   interval: "120"
-  region: "right"
   font: "Iosevka Nerd Font"
   warn_threshold: "20"
   crit_threshold: "10"
@@ -22,7 +21,6 @@ settings:
   bg_height: ""
 settings_schema:
   interval: { type: number, min: 10, max: 600, step: 10 }
-  region: { type: enum, options: [left, center, right] }
   font: { type: string }
   warn_threshold: { type: number, min: 1, max: 100, step: 1 }
   crit_threshold: { type: number, min: 1, max: 100, step: 1 }

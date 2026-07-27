@@ -51,9 +51,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","interval":"10","on_color":"#00FF00","off_color":"#FF0000","glyph_color":"#000000","warn_color":"#111111"}' > "$f"
+  printf '%s' '{"interval":"10","on_color":"#00FF00","off_color":"#FF0000","glyph_color":"#000000","warn_color":"#111111"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_interval" = "10" ]
   [ "$SETTING_on_color" = "#00FF00" ]
   [ "$SETTING_off_color" = "#FF0000" ]

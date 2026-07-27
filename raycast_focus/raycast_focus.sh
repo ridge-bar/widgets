@@ -27,7 +27,9 @@ load_settings() {
   # zeros leaves nothing iff the value is zero-equivalent.
   SETTING_interval="$(jq -r '.interval // "15"' <<<"$json")"
   [[ "$SETTING_interval" =~ ^[0-9]*\.?[0-9]+$ && -n "${SETTING_interval//[.0]/}" ]] || SETTING_interval="15"
-  SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
+  # Placement default only - ridge.yaml's plugins[].region and
+  # plugins[].items override it. Not a user setting.
+  SETTING_region="right"
   # Icon font: the item's icon glyph is a Nerd Font glyph, so it renders
   # as tofu in the system default font unless a Nerd Font family is set
   # at `ridge add` time.

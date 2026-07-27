@@ -39,9 +39,8 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"region":"left","process_pattern":"npm/bin/claude","busy_bg_color":"#123456"}' > "$f"
+  printf '%s' '{"process_pattern":"npm/bin/claude","busy_bg_color":"#123456"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_region" = "left" ]
   [ "$SETTING_process_pattern" = "npm/bin/claude" ]
   [ "$SETTING_busy_bg_color" = "#123456" ]
   [ "$SETTING_idle_bg_color" = "theme:background" ]   # untouched key keeps default

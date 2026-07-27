@@ -33,10 +33,9 @@ setup() {
 
 @test "load_settings overrides from the settings JSON" {
   local f; f="$(mktemp)"
-  printf '%s' '{"interval":"5","region":"left"}' > "$f"
+  printf '%s' '{"interval":"5"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
   [ "$SETTING_interval" = "5" ]
-  [ "$SETTING_region" = "left" ]
   rm -f "$f"
 }
 
