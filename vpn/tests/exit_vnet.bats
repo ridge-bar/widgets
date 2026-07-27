@@ -1,6 +1,5 @@
 #!/usr/bin/env bats
-# Exercises the NetBird exit-node / WARP vnet parsing and row-building - the
-# port of the sketchybar source's exit-node and virtual-network row dispatch.
+# Exercises the NetBird exit-node / WARP vnet parsing and row-building.
 
 setup() {
   PLUGIN_DIR="${BATS_TEST_DIRNAME}/.."

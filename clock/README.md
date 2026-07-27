@@ -1,8 +1,7 @@
 # clock plugin
 
 A single clock (time) item. Split out of the [calendar plugin](../calendar),
-which now keeps date + meetings only. Ported from sketchybar's `clock.sh`;
-no sketchybar-specific behavior carried over.
+which now keeps date + meetings only.
 
 ## What it does
 
@@ -66,7 +65,3 @@ warning is logged once per failure streak to help diagnose a missing grant.
 
 Enforced at the socket per `plugin.yaml`'s `owns: clock.` and
 `permissions.ops: [add, set, remove]`.
-
-## Credit
-
-Ported from `~/.config/sketchybar/plugins/clock.sh`'s clock-rendering logic.

@@ -9,7 +9,7 @@ owns: weather.
 permissions:
   ops: [add, set, remove, popup]
 settings:
-  location: "Szeged"
+  location: ""
   interval: "1800"
   region: "right"
   font: "Iosevka Nerd Font"

@@ -1,12 +1,11 @@
 # raycast_focus plugin
 
-Bar toggle for a [Raycast](https://www.raycast.com) Focus session. Ported from
-the sketchybar raycast_focus item/plugin pair.
+Bar toggle for a [Raycast](https://www.raycast.com) Focus session.
 
 ## What it does
 
 - Paints one item: an active Focus session shows `on_color`, no session shows
-  `off_color` (dark glyph either way, matching the source).
+  `off_color` (dark glyph either way).
 - Clicking the item toggles the session via deeplink (`open -g
   "raycast://focus/start?..."` / `"raycast://focus/complete"`), passing
   `categories` and `mode` from settings, and records the new state so the
@@ -17,8 +16,7 @@ the sketchybar raycast_focus item/plugin pair.
   title contains a colon. The plugin reads that via System Events when it can:
   - If ridge has **Automation access to System Events** (System Settings >
     Privacy & Security > Automation), detection is live - it reflects sessions
-    started or ended anywhere, including from inside Raycast, exactly like the
-    sketchybar widget.
+    started or ended anywhere, including from inside Raycast.
   - If that access is not granted (the common case - a background agent's
     Apple events are often denied without a prompt), the plugin falls back to
     the state it tracks from your own toggles. The widget still works: click

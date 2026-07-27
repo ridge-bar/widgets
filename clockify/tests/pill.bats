@@ -1,8 +1,8 @@
 #!/usr/bin/env bats
-# Exercises the sketchybar-style pill corner-radius/height flags
-# added to the item's `ridge add` call. bg-color is intentionally excluded
-# here - tracking/idle/warn colors already serve as the pill color, applied
-# separately by each paint call (mirrors mindfulness).
+# Exercises the pill corner-radius/height flags added to the item's
+# `ridge add` call. bg-color is intentionally excluded here - tracking/idle/
+# warn colors already serve as the pill color, applied separately by each
+# paint call (mirrors mindfulness).
 
 setup() {
   PLUGIN_DIR="${BATS_TEST_DIRNAME}/.."

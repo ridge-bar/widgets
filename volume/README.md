@@ -1,8 +1,7 @@
 # volume plugin
 
 An output/input audio volume glyph with mute, a volume slider, and device
-switching in a popup. Ported from sketchybar's
-`volume.sh`/`volume_slider.sh`/`volume_inslider.sh`/`volume_setdev.sh`/`volume_popup.sh`.
+switching in a popup.
 
 ## What it does
 
@@ -29,11 +28,11 @@ switching in a popup. Ported from sketchybar's
   the action, then repaints immediately instead of waiting for the next poll
   (same self-reinvoke pattern as `amphetamine`/`mindfulness`).
 
-## Dropped from the sketchybar source
+## Notch-width hack removed
 
 - The "notch width" branch (only show the 3-level icon ladder on the
   notched built-in display, else always the high-volume icon) was a
-  sketchybar-specific cosmetic hack tied to physical bar width on a notch.
+  cosmetic hack tied to physical bar width on a notch.
   Not applicable here - the 3-level ladder is always used.
 
 ## Input mute (emulated)

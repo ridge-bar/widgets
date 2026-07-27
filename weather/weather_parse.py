@@ -3,8 +3,6 @@
 
 `near` is the worst weather happening now or within ~6h (clear|rain|storm),
 used to decide the widget background highlight.
-
-Adapted from ~/.config/sketchybar/plugins/weather_parse.py.
 """
 import sys
 import json

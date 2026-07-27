@@ -449,12 +449,13 @@ EOF
 }
 
 @test "reconcile passes the app font (family/style/size) on add for an app-glyph item" {
+  SETTING_app_font="TestAppFont"
   printf 'ITEM\taerospace_ws.1.app.1\tDELL\tDELL\t:kitty:\t#565F89\taerospace workspace 1\n' >"$TMP/desired"
   : >"$TMP/current"
   run reconcile "$TMP/desired" "$TMP/current"
   line="$(echo "$output" | grep '^ridge add aerospace_ws\.1\.app\.1 ')"
   [ -n "$line" ]
-  echo "$line" | grep -q -- '--font sketchybar-app-font --font-style Regular --font-size 14'
+  echo "$line" | grep -q -- '--font TestAppFont --font-style Regular --font-size 14'
 }
 
 @test "reconcile omits app font flags for an app-glyph item when app_font is empty" {
@@ -468,12 +469,13 @@ EOF
 }
 
 @test "reconcile does not apply the app font to the number item" {
+  SETTING_app_font="TestAppFont"
   printf 'ITEM\taerospace_ws.1.num\tDELL\tDELL\t1\t#A9B1D6\taerospace workspace 1\n' >"$TMP/desired"
   : >"$TMP/current"
   run reconcile "$TMP/desired" "$TMP/current"
   line="$(echo "$output" | grep '^ridge add aerospace_ws\.1\.num ')"
   [ -n "$line" ]
-  ! echo "$line" | grep -q -- 'sketchybar-app-font'
+  ! echo "$line" | grep -q -- 'TestAppFont'
 }
 
 # _item_sortkey now parses the monitor segment out of a ws id

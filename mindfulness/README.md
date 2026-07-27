@@ -1,8 +1,7 @@
 # mindfulness plugin
 
 A leaf-glyph countdown to a mindfulness reminder: pulses red and rings a bell
-once when overdue, until acknowledged. Ported from sketchybar's
-`mindfulness.sh`/`mindfulness_rows.sh`/`mindfulness_interval.sh`/`mindfulness_volume.sh`.
+once when overdue, until acknowledged.
 
 ## What it does
 
@@ -31,8 +30,7 @@ once when overdue, until acknowledged. Ported from sketchybar's
 
 ## Settings vs. state
 
-This plugin splits configuration into two layers - the key adaptation this
-port makes over the sketchybar original:
+This plugin splits configuration into two layers:
 
 - **Settings** (`plugin.yaml`'s `settings:`/`settings_schema:`, read via
   `$RIDGE_PLUGIN_SETTINGS` like every other plugin) are **defaults only** and
@@ -48,8 +46,7 @@ port makes over the sketchybar original:
   plugin currently uses `XDG_STATE_HOME`.
 
 The countdown itself (`cycle_start`) always resets when the plugin process
-starts, matching the source's "resets on every bar load" behavior - only the
-enabled flag, interval, and volume persist across restarts.
+starts - only the enabled flag, interval, and volume persist across restarts.
 
 ## Settings popup
 

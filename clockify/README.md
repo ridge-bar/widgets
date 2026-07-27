@@ -2,8 +2,7 @@
 
 Clockify time-tracking status (green=tracking, orange=idle), with a popup for
 stopping the current task, opening the desktop app/calendar/reports, and
-resuming a recent task. Ported from sketchybar's
-`items/clockify.sh` + `plugins/clockify*.sh`.
+resuming a recent task.
 
 ## What it does
 
@@ -26,11 +25,11 @@ written to `ridge.yaml`, any plugin setting, the state-dir cache, or a log
 line. It is read into a shell variable in-process for each request and
 discarded when that process exits.
 
-The default (`~/.config/sketchybar/.clockify_token`) intentionally matches
-the sketchybar config's token file path, so an existing sketchybar setup's
-token file keeps working unmodified - no `ridge.yaml` change is needed to
-migrate. Point `token_file` elsewhere if you'd rather keep it outside the
-sketchybar directory.
+The default (`~/.config/ridge/.clockify_token`) keeps the token alongside
+ridge's other config; point `token_file` elsewhere if you'd rather keep it
+somewhere else. The default path changed from a prior release - if your
+token is at the old location, move it to the new default (or point
+`token_file` at its existing location).
 
 ### Warn state
 
@@ -55,7 +54,7 @@ it does.
 
 1. Copy this directory to `~/.config/ridge/plugins/clockify/` (or
    `$XDG_CONFIG_HOME/ridge/plugins/clockify/`).
-2. Ensure your Clockify API token is saved at `~/.config/sketchybar/.clockify_token`
+2. Ensure your Clockify API token is saved at `~/.config/ridge/.clockify_token`
    (or set `token_file` to wherever it lives).
 3. Add to your `ridge.yaml`:
 
@@ -76,7 +75,7 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 | `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `interval` | `30` | Seconds between polls. Non-numeric or zero-equivalent falls back to `30`. |
-| `token_file` | `~/.config/sketchybar/.clockify_token` | Path to the Clockify API token file. Never put the token in this setting's value directly - `ridge.yaml` is plain text on disk. |
+| `token_file` | `~/.config/ridge/.clockify_token` | Path to the Clockify API token file. Never put the token in this setting's value directly - `ridge.yaml` is plain text on disk. |
 | `max_rows` | `10` | Max recent-task rows shown in the popup (1-10). |
 | `request_timeout` | `8` | `curl --max-time` in seconds for every Clockify API call. |
 | `tracking_color` | `theme:success` | Pill background while a timer is running. |
@@ -111,33 +110,20 @@ Enforced at the socket per `plugin.yaml`'s `owns: clockify.` and
 `ridge popup toggle`, `ridge popup hide`, and `ridge popup set-rows` - the
 wire protocol maps all three to the single `popup` op.
 
-## Credit
+## Design notes
 
-`clockify_parse.py` is adapted from
-`~/.config/sketchybar/plugins/clockify_parse.py`; parsing logic is unchanged.
-
-## Deviations from the sketchybar source
-
-- **No lazy popup-row build step.** The sketchybar source built its ~14
-  popup rows on first right-click only, to avoid the per-row WindowServer
-  cost of ~100 startup-built rows across the whole config. Ridge's
-  `ridge popup set-rows` replaces the whole row list every call and has no
-  such per-row window cost, so this plugin rebuilds the full row array on
-  every poll instead - simpler, and the popup is always fresh the instant
-  it's opened.
-- **Ids re-fetch trigger.** The sketchybar source never re-fetches cached
-  workspace/user ids at all. This port re-fetches when the cache is missing
-  or empty, and also clears the cache (forcing a re-fetch next tick) if a
-  time-entries request made with those cached ids fails outright - a
-  pragmatic guess at "the cached ids may be stale," since curl's exit status
-  doesn't distinguish an auth failure from a network blip.
-- **Atomic cache write around a verbatim vendored script.** `clockify_parse.py`
-  writes its cache file directly (non-atomically) in the original source.
-  This port keeps the script unmodified and instead passes it a temp path,
-  then `mv -f`s that into place from `clockify.sh` - the file the poll loop
-  and click handlers read is always a complete write, never a torn one.
-- **Index lookup via `jq`, not a `python3 -c` heredoc.** The sketchybar
-  source's clockify_start.sh looks up `history[<index>]` with an inline
-  Python heredoc. This port uses `jq` instead, for consistency with the rest
-  of this codebase's jq-based JSON handling; the lookup and POST body shape
-  are otherwise identical.
+- **No lazy popup-row build step.** Ridge's `ridge popup set-rows` replaces
+  the whole row list every call with no per-row window cost, so this plugin
+  rebuilds the full row array on every poll - simpler, and the popup is
+  always fresh the instant it's opened.
+- **Ids re-fetch trigger.** Cached workspace/user ids are re-fetched when the
+  cache is missing or empty, and the cache is also cleared (forcing a
+  re-fetch next tick) if a time-entries request made with those cached ids
+  fails outright - a pragmatic guess at "the cached ids may be stale," since
+  curl's exit status doesn't distinguish an auth failure from a network blip.
+- **Atomic cache write around a vendored script.** `clockify_parse.py` writes
+  its cache file directly (non-atomically). `clockify.sh` passes it a temp
+  path instead, then `mv -f`s that into place - the file the poll loop and
+  click handlers read is always a complete write, never a torn one.
+- **Index lookup via `jq`.** History-entry lookup by index uses `jq`, for
+  consistency with the rest of this codebase's jq-based JSON handling.

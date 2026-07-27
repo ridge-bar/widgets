@@ -17,7 +17,7 @@ setup() {
   [ "$SETTING_max_ws_apps" = "5" ]
 }
 
-@test "load_settings has sketchybar padding defaults" {
+@test "load_settings has item padding defaults" {
   RIDGE_PLUGIN_SETTINGS="" load_settings
   [ "$SETTING_num_pad_left" = "8" ]
   [ "$SETTING_num_pad_right" = "4" ]
@@ -115,7 +115,7 @@ setup() {
 
 @test "load_settings has app-font defaults" {
   RIDGE_PLUGIN_SETTINGS="" load_settings
-  [ "$SETTING_app_font" = "sketchybar-app-font" ]
+  [ "$SETTING_app_font" = "" ]
   [ "$SETTING_app_font_style" = "Regular" ]
   [ "$SETTING_app_font_size" = "14" ]
 }
@@ -130,11 +130,11 @@ setup() {
   rm -f "$f"
 }
 
-@test "load_settings falls back to app-font defaults on empty/non-numeric overrides" {
+@test "load_settings falls back to app-font-style/size defaults on empty/non-numeric overrides" {
   local f; f="$(mktemp)"
   printf '%s' '{"app_font":"","app_font_style":"","app_font_size":"abc"}' > "$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_app_font" = "sketchybar-app-font" ]
+  [ "$SETTING_app_font" = "" ]
   [ "$SETTING_app_font_style" = "Regular" ]
   [ "$SETTING_app_font_size" = "14" ]
   rm -f "$f"

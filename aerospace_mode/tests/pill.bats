@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
-# Exercises the sketchybar-style pill flags shared by the badge's `ridge
+# Exercises the pill flags shared by the badge's `ridge
 # add`/`ridge set` calls (bg-color/corner-radius/height/padding/icon-color/
 # color).
 

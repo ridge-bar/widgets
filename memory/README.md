@@ -2,9 +2,7 @@
 
 A memory usage bar-block glyph with threshold color, plus a top-processes
 popup. Split out of the former `sysmon` plugin (which bracketed CPU and
-memory together) so memory can be installed on its own. Ported from
-sketchybar's `items/sysmon.sh` + `plugins/memory.sh` +
-`plugins/sysmon_popup.sh` + `plugins/usage_bar.sh`.
+memory together) so memory can be installed on its own.
 
 ## What it does
 
@@ -17,12 +15,11 @@ sketchybar's `items/sysmon.sh` + `plugins/memory.sh` +
 - Clicking the item opens a popup listing the top 10 processes by memory
   (`ps`'s own `-m` sort).
 
-## Simplifications over the sketchybar source
+## Limitations
 
-- **Popup-open detection**: the source watches a `/tmp` flag file toggled by
-  a separate always-running 1s-cadence poller item. This port instead reads
-  `.popupOpen` off `ridge query items` for `memory.usage` - a single source
-  of truth already tracked by ridge core, no flag file needed.
+- **Popup-open detection**: reads `.popupOpen` off `ridge query items` for
+  `memory.usage` - a single source of truth already tracked by ridge core,
+  no flag file needed.
 - **Refresh cadence**: the top-process listing only runs (and the popup rows
   only rebuild) at the plugin's normal `interval`, while the popup is open -
   there is no separate faster poller. If you want a snappier popup, lower
@@ -69,7 +66,7 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 | `mem_color` | `theme:media` | Healthy-band color. |
 | `warn_color` | `theme:warning` | Color at/above `warn_threshold`. |
 | `crit_color` | `theme:error` | Color at/above `crit_threshold`. |
-| `bg_color` | `theme:background` | Pill background color (sketchybar-style bubble). |
+| `bg_color` | `theme:background` | Pill background color. |
 | `corner_radius` | _(unset)_ | Pill corner radius; unset inherits the bar's global `item_corner_radius`. |
 | `bg_height` | _(auto)_ | Pill height; adapts to the bar height unless set. |
 

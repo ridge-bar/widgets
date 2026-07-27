@@ -1,8 +1,7 @@
 # amphetamine plugin
 
 Bar toggle for an [Amphetamine](https://apps.apple.com/app/amphetamine/id937984704)
-session (keep the Mac awake). Ported from the sketchybar amphetamine item/plugin
-pair.
+session (keep the Mac awake).
 
 ## What it does
 

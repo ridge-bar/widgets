@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
-# Exercises the sketchybar-style pill flags added to the item's `ridge add`
+# Exercises the pill flags added to the item's `ridge add`
 # call (corner-radius/height - no bg-color, since bg tracks
 # connection state via `ridge set` instead).
 

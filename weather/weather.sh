@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Ridge weather plugin: condition glyph + temperature from wttr.in, plus a
-# popup with current conditions and a 3-day forecast. Ported from sketchybar's
-# weather.sh/weather_popup.sh (see README.md). Talks to ridge over
-# $RIDGE_SOCKET via the `ridge` CLI. Celsius only - see README "Units".
+# popup with current conditions and a 3-day forecast (see README.md). Talks
+# to ridge over $RIDGE_SOCKET via the `ridge` CLI. Celsius only - see README
+# "Units".
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ITEM_ID="weather.status"
-# Fixed accent for the popup's title row, matching sketchybar's WEATHERICON.
+# Fixed accent for the popup's title row.
 # Not user-configurable - a fixed accent, not a threshold color (mirrors battery.sh).
 WEATHER_TITLE_COLOR="#7DCFFF"
 
@@ -24,8 +24,9 @@ load_settings() {
   if [[ -n "${RIDGE_PLUGIN_SETTINGS:-}" && -f "${RIDGE_PLUGIN_SETTINGS}" ]]; then
     json="$(cat "${RIDGE_PLUGIN_SETTINGS}")"
   fi
-  SETTING_location="$(jq -r '.location // "Szeged"' <<<"$json")"
-  [[ -n "$SETTING_location" ]] || SETTING_location="Szeged"
+  # Empty is the default and means "let wttr.in geo-IP the request", so the
+  # widget works anywhere without configuration.
+  SETTING_location="$(jq -r '.location // ""' <<<"$json")"
   SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
   # Icon font: the weather condition glyph (set via `ridge set --icon`) is
   # a Nerd Font glyph, so it renders as tofu in the system default font
@@ -97,12 +98,15 @@ _weather_highlight() {
 # Cache path under $TMPDIR (falling back to /tmp), one file per location so a
 # settings change never serves a stale reading for a different place.
 _cache_file() {
-  printf '%s/ridge_weather_%s.json' "${TMPDIR:-/tmp}" "$(sanitize "$SETTING_location")"
+  local key
+  key="$(sanitize "$SETTING_location")"
+  [[ -n "$key" ]] || key="auto"
+  printf '%s/ridge_weather_%s.json' "${TMPDIR:-/tmp}" "$key"
 }
 
 # Refetches into $cache when missing or older than ~5/6 of the poll interval
-# (mirrors sketchybar's 25min-stale/30min-poll ratio). Keeps the previous
-# cached reading on a fetch failure instead of clobbering it.
+# (a 25min-stale/30min-poll ratio at the default interval). Keeps the
+# previous cached reading on a fetch failure instead of clobbering it.
 _refresh_cache() {
   local cache="$1" stale_min tmp loc_encoded
   stale_min=$(( SETTING_interval * 5 / 6 / 60 ))
@@ -119,14 +123,27 @@ _refresh_cache() {
   fi
 }
 
+# The popup's title row. An explicit setting wins; otherwise the area wttr.in
+# geo-IP resolved is read back from the cached response, so the row names a
+# place rather than showing blank.
+_location_label() {
+  local cache="$1" resolved
+  if [[ -n "$SETTING_location" ]]; then
+    printf '%s' "$SETTING_location"
+    return 0
+  fi
+  resolved="$(jq -r '.nearest_area[0].areaName[0].value // empty' "$cache" 2>/dev/null)"
+  printf '%s' "${resolved:-Current location}"
+}
+
 # Popup rows JSON from weather_popup_render.py's `row|icon|label` lines, safely
 # via jq (never hand-spliced into the JSON string). A title row (location) is
 # prepended.
 _weather_popup_rows_json() {
-  local render_output="$1"
+  local render_output="$1" location="$2"
   jq -n \
     --arg title_color "$WEATHER_TITLE_COLOR" \
-    --arg location "$SETTING_location" \
+    --arg location "$location" \
     --arg rendered "$render_output" \
     '($rendered | split("\n") | map(select(length > 0))
        | map(try capture("^(?<id>[^|]*)\\|(?<cap>[^|]*)\\|(?<val>.*)$") catch null)
@@ -135,7 +152,7 @@ _weather_popup_rows_json() {
      | [{icon: "Weather", text: $location, color: $title_color, icon_color: $title_color}] + $rows'
 }
 
-# Sketchybar-style pill background flags for the item's `ridge add` call -
+# Pill background flags for the item's `ridge add` call -
 # extracted so bats can assert the flags without invoking the real `ridge`
 # CLI. bg_color seeds the pill before the first successful fetch; the poll
 # loop's own --bg-color (rain/storm highlight) overrides the color only -
@@ -179,7 +196,7 @@ main() {
 
         local rendered rows_json
         rendered="$(python3 "${PLUGIN_ROOT}/weather_popup_render.py" <"$cache")"
-        rows_json="$(_weather_popup_rows_json "$rendered")"
+        rows_json="$(_weather_popup_rows_json "$rendered" "$(_location_label "$cache")")"
         ridge popup set-rows "$ITEM_ID" --json "$rows_json" 2>/dev/null || true
       fi
     fi

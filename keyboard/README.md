@@ -1,7 +1,6 @@
 # keyboard plugin
 
-Flag emoji for the current macOS keyboard input source (layout). Ported from
-a sketchybar item/plugin pair; no sketchybar-specific behavior carried over.
+Flag emoji for the current macOS keyboard input source (layout).
 
 ## What it does
 
@@ -52,7 +51,7 @@ TIS helper is preferred.
 |---|---|---|
 | `interval` | `1` | Seconds between polls. Non-numeric or zero falls back to `1`. |
 | `region` | `right` | Bar region for the flag item. |
-| `bg_color` | `theme:background` | Pill background color (sketchybar-style bubble, matching aerospace). |
+| `bg_color` | `theme:background` | Pill background color (matching aerospace). |
 | `corner_radius` | _(unset)_ | Pill corner radius; unset inherits the bar's global `item_corner_radius`. |
 | `bg_height` | _(auto)_ | Pill height; adapts to the bar height unless set. |
 

@@ -5,7 +5,6 @@
 # either its container id or its leading child, whichever is currently
 # first, so the badge lands right after whatever precedes the strip (e.g.
 # the global menu) instead of jumping to the absolute front of the region.
-# Ported from sketchybar's items/aerospace_mode.sh + plugins/aerospace_mode.sh.
 # AeroSpace has no query for its current binding mode and `ridge trigger`
 # carries no payload, so the mode name travels via a state file the user's
 # aerospace.toml mode bindings write before firing `ridge trigger
@@ -16,7 +15,7 @@ set -uo pipefail
 
 ITEM_ID="aerospace_mode.badge"
 
-# Nerd Font gear glyph (U+F0493), matching the sketchybar source's icon.
+# Nerd Font gear glyph (U+F0493).
 AM_GLYPH="󰒓"
 
 _have() { command -v "$1" >/dev/null 2>&1; }
@@ -32,7 +31,7 @@ load_settings() {
   [[ -n "$SETTING_font" ]] || SETTING_font="Iosevka Nerd Font"
 
   # Attention badge: warning-family bg with ink-toned glyph/label -
-  # keeps the urgency of the sketchybar source's red-on-dark styling.
+  # keeps the urgency of the red-on-dark styling.
   SETTING_bg_color="$(jq -r '.bg_color // "theme:warning"' <<<"$json")"
   SETTING_icon_color="$(jq -r '.icon_color // "#12161D"' <<<"$json")"
   SETTING_label_color="$(jq -r '.label_color // "#12161D"' <<<"$json")"
@@ -96,7 +95,7 @@ _am_label_for_mode() {
   printf '%s' "$mode" | tr '[:lower:]' '[:upper:]'
 }
 
-# Sketchybar-style pill style flags shared by `ridge add` and `ridge set`
+# Pill style flags shared by `ridge add` and `ridge set`
 # (bg/colors/padding). Font is add-only (not in `ridge set`'s allowed flag
 # set) so it is NOT included here - see main()'s add call.
 _pill_style_flags() {

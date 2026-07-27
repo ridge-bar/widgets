@@ -1,6 +1,5 @@
 #!/usr/bin/env bats
-# Exercises the sketchybar-style pill background flags added to the item's
-# `ridge add` call.
+# Exercises the pill background flags added to the item's `ridge add` call.
 
 setup() {
   PLUGIN_DIR="${BATS_TEST_DIRNAME}/.."

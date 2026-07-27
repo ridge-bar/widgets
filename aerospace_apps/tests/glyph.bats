@@ -6,7 +6,7 @@ setup() {
   source "${PLUGIN_DIR}/aerospace-apps-plugin.sh"
 }
 
-@test "app_icon maps a known app to its sketchybar-app-font ligature" {
+@test "app_icon maps a known app to its app-icon ligature" {
   run app_icon "Google Chrome"
   [ "$status" -eq 0 ]
   [ "$output" = ":google_chrome:" ]

@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
-# Exercises the sketchybar-style pill corner-radius/height flags
+# Exercises the pill corner-radius/height flags
 # added to the item's `ridge add` call. bg-color is intentionally excluded
 # here - on_color/off_color/warn_color already serve as the pill color, set
 # separately by paint_state/paint_warn.

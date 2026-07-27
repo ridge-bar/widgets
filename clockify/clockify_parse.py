@@ -5,8 +5,6 @@ Reads the raw JSON array on stdin. Writes a cache (running flag, current label,
 and the recent distinct tasks with the ids needed to resume them) to argv[1].
 Prints, one per line: state (RUNNING/IDLE), current label, then each recent
 task's label -- consumed by clockify.sh to set the popup rows.
-
-Adapted from ~/.config/sketchybar/plugins/clockify_parse.py (sketchybar config).
 """
 import sys
 import json

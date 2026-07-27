@@ -1,7 +1,6 @@
 # battery plugin
 
-A charge-level glyph with threshold color, plus a details popup. Ported from
-sketchybar's `battery.sh`/`battery_popup.sh`.
+A charge-level glyph with threshold color, plus a details popup.
 
 ## What it does
 
@@ -53,7 +52,7 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 | `warn_color` | `theme:warning` | Color at or below `warn_threshold`. |
 | `crit_color` | `theme:error` | Color at or below `crit_threshold`. |
 | `normal_color` | `theme:primary` | Color above both thresholds. |
-| `bg_color` | `theme:background` | Pill background color (sketchybar-style bubble, matching aerospace). |
+| `bg_color` | `theme:background` | Pill background color (matching aerospace). |
 | `corner_radius` | _(unset)_ | Pill corner radius; unset inherits the bar's global `item_corner_radius`. |
 | `bg_height` | _(auto)_ | Pill height; adapts to the bar height unless set. |
 

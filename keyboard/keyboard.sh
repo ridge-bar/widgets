@@ -6,10 +6,9 @@ set -uo pipefail
 # compiled Swift helper (authoritative, reflects every switch method instantly),
 # falling back to the `defaults` preference when no Swift toolchain is available
 # - the preference can lag or miss some switch paths, which is why the helper is
-# preferred. Ported from the sketchybar keyboard item/plugin pair; the
-# sketchybar version also cached the last-painted layout on disk to skip
-# redundant sets - dropped here since a plain poll-and-set each interval is
-# simpler and the redundant `ridge set` is cheap.
+# preferred. There's no on-disk cache of the last-painted layout to skip
+# redundant sets - a plain poll-and-set each interval is simpler and the
+# redundant `ridge set` is cheap.
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -22,7 +21,7 @@ load_settings() {
   SETTING_region="$(jq -r '.region // "right"' <<<"$json")"
   SETTING_interval="$(jq -r '.interval // "1"' <<<"$json")"
   [[ "$SETTING_interval" =~ ^[0-9]*\.?[0-9]+$ && -n "${SETTING_interval//[.0]/}" ]] || SETTING_interval="1"
-  # Sketchybar-style pill background, matching aerospace's workspace bubbles.
+  # Pill background, matching aerospace's workspace bubbles.
   SETTING_bg_color="$(jq -r '.bg_color // "theme:background"' <<<"$json")"
   SETTING_corner_radius="$(jq -r '.corner_radius // ""' <<<"$json")"
   if [[ -n "$SETTING_corner_radius" ]] && ! [[ "$SETTING_corner_radius" =~ ^[0-9]+$ && "$SETTING_corner_radius" -ge 0 && "$SETTING_corner_radius" -le 30 ]]; then
@@ -37,7 +36,7 @@ load_settings() {
   fi
 }
 
-# Sketchybar-style pill background flags for the item's `ridge add` call -
+# Pill background flags for the item's `ridge add` call -
 # extracted so bats can assert the flags without invoking the real `ridge`
 # CLI.
 _pill_flags() {

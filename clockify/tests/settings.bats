@@ -10,7 +10,7 @@ setup() {
   [ "$SETTING_region" = "right" ]
   [ "$SETTING_font" = "Iosevka Nerd Font" ]
   [ "$SETTING_interval" = "30" ]
-  [ "$SETTING_token_file" = "${HOME}/.config/sketchybar/.clockify_token" ]
+  [ "$SETTING_token_file" = "${HOME}/.config/ridge/.clockify_token" ]
   [ "$SETTING_max_rows" = "10" ]
   [ "$SETTING_request_timeout" = "8" ]
   [ "$SETTING_tracking_color" = "theme:success" ]
@@ -157,6 +157,6 @@ setup() {
   [ "$SETTING_idle_color" = "#ABCDEF" ]
   [ "$SETTING_region" = "right" ]
   [ "$SETTING_interval" = "30" ]
-  [ "$SETTING_token_file" = "${HOME}/.config/sketchybar/.clockify_token" ]
+  [ "$SETTING_token_file" = "${HOME}/.config/ridge/.clockify_token" ]
   rm -f "$f"
 }

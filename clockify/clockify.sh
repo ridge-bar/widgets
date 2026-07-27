@@ -2,17 +2,16 @@
 # Ridge clockify plugin: a bar item reflecting Clockify time-tracking status
 # (green=tracking, orange=idle), left-click toggles start/stop, right-click
 # opens a popup with the current task (click to stop), app/calendar/reports
-# shortcuts, and recent tasks (click to resume). Ported from sketchybar's
-# items/clockify.sh + plugins/clockify*.sh (see README.md). Talks to ridge
-# over $RIDGE_SOCKET via the `ridge` CLI.
+# shortcuts, and recent tasks (click to resume). See README.md. Talks to
+# ridge over $RIDGE_SOCKET via the `ridge` CLI.
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ITEM_ID="clockify.status"
 CLOCKIFY_API="https://api.clockify.me/api/v1"
-# Nerd Font stopwatch glyph, matching the sketchybar source's icon=󰔛. Ridge
-# only attaches an icon PART to an item if --icon carries a non-empty value
-# at `ridge add` time - see tasks.sh/README.md.
+# Nerd Font stopwatch glyph. Ridge only attaches an icon PART to an item if
+# --icon carries a non-empty value at `ridge add` time - see
+# tasks.sh/README.md.
 CLOCKIFY_ICON="󰔛"
 
 _have() { command -v "$1" >/dev/null 2>&1; }
@@ -56,10 +55,9 @@ load_settings() {
   # token_file defaults to a $HOME-expanded path, which YAML cannot express
   # as a literal default in plugin.yaml (see tasks.sh's noteplan_dir for the
   # same technique). plugin.yaml leaves this unset (jq // fallback yields
-  # "") and the bash-expanded default is applied here instead - chosen so an
-  # existing sketchybar `.clockify_token` file keeps working unmodified.
+  # "") and the bash-expanded default is applied here instead.
   SETTING_token_file="$(jq -r '.token_file // ""' <<<"$json")"
-  [[ -n "$SETTING_token_file" ]] || SETTING_token_file="${HOME}/.config/sketchybar/.clockify_token"
+  [[ -n "$SETTING_token_file" ]] || SETTING_token_file="${HOME}/.config/ridge/.clockify_token"
 
   SETTING_max_rows="$(jq -r '.max_rows // "10"' <<<"$json")"
   [[ "$SETTING_max_rows" =~ ^[0-9]+$ && "$SETTING_max_rows" -ge 1 && "$SETTING_max_rows" -le 10 ]] || SETTING_max_rows="10"
@@ -93,8 +91,7 @@ load_settings() {
 # tests/pure.bats).
 ##############################################################################
 
-# Strips all whitespace (including newlines) from a raw token-file read,
-# mirroring the sketchybar source's `tr -d '[:space:]' < "$TOKEN_FILE"`.
+# Strips all whitespace (including newlines) from a raw token-file read.
 _clockify_clean_token() {
   local raw="$1"
   printf '%s' "$raw" | tr -d '[:space:]'
@@ -119,9 +116,8 @@ _clockify_index_in_range() {
 }
 
 # Builds a Clockify POST body ({start, description, projectId?, taskId?,
-# tagIds?}) from a cached history entry's JSON, ported from the sketchybar
-# source's clockify_start.sh Python heredoc. entry_json must be a single JSON
-# object (as extracted from the cache's history[] array).
+# tagIds?}) from a cached history entry's JSON. entry_json must be a single
+# JSON object (as extracted from the cache's history[] array).
 _clockify_resume_body_json() {
   local entry_json="$1" now="$2"
   jq -n --argjson e "$entry_json" --arg now "$now" '
@@ -255,10 +251,10 @@ _clockify_stop() {
     -d "$body" "${CLOCKIFY_API}/workspaces/${ws}/user/${userid}/time-entries" >/dev/null 2>&1 || true
 }
 
-# Sketchybar-style pill background flags for the item's `ridge add` call -
-# extracted so bats can assert the flags without invoking the real `ridge`
-# CLI. No bg-color here: tracking/idle/warn colors already serve as the pill
-# color, applied separately by each paint call (mirrors mindfulness).
+# Pill background flags for the item's `ridge add` call - extracted so bats
+# can assert the flags without invoking the real `ridge` CLI. No bg-color
+# here: tracking/idle/warn colors already serve as the pill color, applied
+# separately by each paint call (mirrors mindfulness).
 _pill_flags() {
   local out=""
   [[ -n "$SETTING_corner_radius" ]] && out+="$(printf -- '--bg-corner-radius %s' "$SETTING_corner_radius")"
@@ -325,9 +321,7 @@ _clockify_poll_and_paint() {
 
 # Entry point for CLOCKIFY_ACTION=<toggle|stop>: toggle is the left-click
 # behavior (stop if running, else start a blank/cleared entry); stop is the
-# popup's "current task" row, which always stops regardless of state -
-# ported verbatim from the sketchybar source's clockify_stop.sh being wired
-# to that row unconditionally.
+# popup's "current task" row, which always stops regardless of state.
 _clockify_handle_action() {
   local action="$1" token
   token="$(_clockify_read_token)"
@@ -357,9 +351,9 @@ _clockify_handle_action() {
 
 # Entry point for CLOCKIFY_START_INDEX=<i>: the index-into-cache pattern -
 # resumes the cached history[i] entry (same description/project/task/tags)
-# with a fresh start time, ported from the sketchybar source's
-# clockify_start.sh. Looked up via jq against the SAME state-dir cache the
-# poll's clockify_parse.py invocation just wrote, never a separate /tmp file.
+# with a fresh start time. Looked up via jq against the SAME state-dir cache
+# the poll's clockify_parse.py invocation just wrote, never a separate /tmp
+# file.
 _clockify_handle_start_index() {
   local idx="$1" token
   token="$(_clockify_read_token)"
@@ -395,8 +389,7 @@ _clockify_handle_start_index() {
 
 # Entry point for CLOCKIFY_OPEN=<desktop|calendar|reports>: opens the
 # Clockify Desktop app (or its web tracker if the app isn't installed), the
-# web calendar, or the web reports page, then closes the popup. Ported
-# verbatim from the sketchybar source's clockify_open.sh.
+# web calendar, or the web reports page, then closes the popup.
 _clockify_handle_open() {
   local dest="$1"
   case "$dest" in

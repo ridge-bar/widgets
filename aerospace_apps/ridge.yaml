@@ -1,7 +1,7 @@
 # Example ridge config for the AeroSpace apps (center window list) bar. Copy
 # the plugin to ~/.config/ridge/plugins/aerospace_apps/ and this file to
-# ~/.config/ridge/ridge.yaml (merge with your own). Requires jq, a Nerd Font
-# (bar text), and the sketchybar-app-font font (app icons).
+# ~/.config/ridge/ridge.yaml (merge with your own). Requires jq and a Nerd
+# Font (bar text); set app_font to an app-icon ligature font for app icons.
 bar:
   height: 26
   color: "#1A1B26E6"

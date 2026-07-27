@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
-# Exercises the sketchybar-style pill geometry flags for the `ridge add`
-# call (corner-radius/height), and statically checks the `ridge add` line
+# Exercises the pill geometry flags for the `ridge add` call
+# (corner-radius/height), and statically checks the `ridge add` line
 # in the script for item id and expected flags.
 
 setup() {

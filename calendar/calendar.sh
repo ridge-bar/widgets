@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Ridge calendar plugin: a date item whose popup lists the next 24h of Apple
 # Calendar meetings; the date item turns orange while a busy meeting is in
-# progress. Ported from sketchybar's calendar_popup.sh/calendar_rows.sh - see
-# README.md. Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI. The
+# progress. See README.md. Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI. The
 # clock (time) item lives in the sibling `clock` plugin.
 set -uo pipefail
 
@@ -59,7 +58,7 @@ load_settings() {
   SETTING_in_progress_color="$(jq -r '.in_progress_color // "theme:success"' <<<"$json")"
 }
 
-# Sketchybar-style pill geometry flags for the date item's `ridge add` call -
+# Pill geometry flags for the date item's `ridge add` call -
 # extracted so bats can assert the flags without invoking the real `ridge`
 # CLI. bg-color is passed separately at each call site since the date item's
 # background alternates between bg_color and busy_bg_color.

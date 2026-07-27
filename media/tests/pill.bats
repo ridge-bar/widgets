@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
-# Locks the item's `ridge add` call to include the sketchybar-style pill
-# corner-radius/height flags (matching the other widgets' pills). media has no
+# Locks the item's `ridge add` call to include the pill corner-radius/height
+# flags (matching the other widgets' pills). media has no
 # _pill_flags() helper - corner-radius/bg-height are each emitted via their
 # own small helper instead, both omitted by default so the pill's radius/
 # height auto-adapt to ridge's global defaults (TASK-139).

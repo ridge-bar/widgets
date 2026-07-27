@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 # Ridge cpu plugin: a CPU usage bar-block glyph with threshold color, plus a
 # top-CPU-processes popup. Split out of the former sysmon plugin (which
-# bracketed cpu+memory together) so cpu is its own installable widget. Ported
-# from sketchybar's items/sysmon.sh + plugins/cpu.sh + plugins/sysmon_popup.sh
-# + plugins/usage_bar.sh. See README.md. Talks to ridge over $RIDGE_SOCKET via
-# the `ridge` CLI.
+# bracketed cpu+memory together) so cpu is its own installable widget. See
+# README.md. Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI.
 set -uo pipefail
 
 ITEM_ID="cpu.usage"
@@ -47,7 +45,7 @@ load_settings() {
   SETTING_cpu_color="$(jq -r '.cpu_color // "theme:system"' <<<"$json")"
   SETTING_warn_color="$(jq -r '.warn_color // "theme:warning"' <<<"$json")"
   SETTING_crit_color="$(jq -r '.crit_color // "theme:error"' <<<"$json")"
-  # Sketchybar-style pill background, matching battery/aerospace's bubbles.
+  # Pill background, matching battery/aerospace's bubbles.
   SETTING_bg_color="$(jq -r '.bg_color // "theme:background"' <<<"$json")"
   SETTING_corner_radius="$(jq -r '.corner_radius // ""' <<<"$json")"
   if [[ -n "$SETTING_corner_radius" ]] && ! [[ "$SETTING_corner_radius" =~ ^[0-9]+$ && "$SETTING_corner_radius" -ge 0 && "$SETTING_corner_radius" -le 30 ]]; then
@@ -71,8 +69,7 @@ _cpu_state_dir() {
   printf '%s' "$dir"
 }
 
-# 8-level vertical bar-block glyph (bar_char() from sketchybar's
-# usage_bar.sh, ported verbatim): idx = floor((pct*8+99)/100), clamped 1-8.
+# 8-level vertical bar-block glyph: idx = floor((pct*8+99)/100), clamped 1-8.
 _cpu_bar_char() {
   local pct="$1" idx
   idx=$(( (pct * 8 + 99) / 100 ))
@@ -118,7 +115,6 @@ _cpu_pct() {
 }
 
 # Parses a `ps cputime` field (H:MM:SS, MM:SS, or SS) into total seconds.
-# Ported verbatim from sketchybar's sysmon_popup.sh tosec() awk function.
 _cpu_tosec() {
   local t="$1"
   awk -v t="$t" 'BEGIN {
@@ -131,9 +127,9 @@ _cpu_tosec() {
 
 # Instantaneous per-process CPU%: (cs_now - cs_prev) / dt * 100, clamped at 0;
 # falls back to `pcpu` (ps's lifetime average) when dt is stale/first-frame
-# (dt <= 0 || dt > 10). This is the btop-style delta the sketchybar source
-# uses instead of ps's pcpu, which overstates processes busy long ago and
-# understates ones spiking right now.
+# (dt <= 0 || dt > 10). This is a btop-style delta used instead of ps's pcpu,
+# which overstates processes busy long ago and understates ones spiking right
+# now.
 _cpu_delta_pct() {
   local cs_now="$1" cs_prev="$2" dt="$3" pcpu="$4"
   if awk -v dt="$dt" 'BEGIN { exit !(dt <= 0 || dt > 10) }'; then
@@ -179,9 +175,7 @@ _cpu_popup_rows_json() {
 
 # Samples top-10 per-process CPU via the delta algorithm above, persisting
 # the pid->cputime snapshot atomically (temp+mv) under the cpu state dir.
-# Prints "<pct>\t<comm>" lines, descending. Ported verbatim (algorithm) from
-# sketchybar's sysmon_popup.sh; only the snapshot location and atomic write
-# are new.
+# Prints "<pct>\t<comm>" lines, descending.
 _cpu_top_lines() {
   local dir snap snap_tmp nowt prevt dt out
   dir="$(_cpu_state_dir)"
@@ -230,7 +224,7 @@ _cpu_popup_open() {
   [[ "$open" == "true" ]]
 }
 
-# Sketchybar-style pill background flags for the item's `ridge add` call -
+# Pill background flags for the item's `ridge add` call -
 # extracted so bats can assert the flags without invoking the real `ridge`
 # CLI. Set once at add time: later `ridge set` calls only touch icon/color,
 # and an item's background/padding persists across those.

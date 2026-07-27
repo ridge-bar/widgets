@@ -76,7 +76,7 @@ setup() {
   ! echo "$output" | grep -q 'aerospace_ws.Built-in_Retina_Display.3'
 }
 
-@test "desired_state renders app items with the sketchybar-app-font ligature text" {
+@test "desired_state renders app items with the app-icon ligature text" {
   # ws1's windows are kitty (app.1) then Google Chrome (app.2), per windows.tsv.
   run desired_state "${FIX}/monitors.tsv" "${FIX}/workspaces.tsv" "${FIX}/windows.tsv" "101"
   echo "$output" | grep -qE $'^ITEM\taerospace_ws\\.Built-in_Retina_Display\\.1\\.app\\.1\t.*\t:kitty:\t'

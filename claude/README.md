@@ -1,8 +1,7 @@
 # claude plugin
 
 An icon that tints green while Claude Code is working, plus a details popup
-listing active sessions, live subagents, and token usage. Ported from
-sketchybar's `items/claude.sh`/`plugins/claude_usage.sh`/`plugins/claude_popup.sh`.
+listing active sessions, live subagents, and token usage.
 
 ## What it does
 
@@ -21,8 +20,7 @@ sketchybar's `items/claude.sh`/`plugins/claude_usage.sh`/`plugins/claude_popup.s
     (served from a state-dir cache, refreshed in the background when stale).
 - "Working" detection, session listing, and token summation are delegated to
   three vendored Python helpers (`claude_working.py`, `claude_sessions.py`,
-  `claude_tokens.py`) that read candidate transcript paths on stdin - ported
-  verbatim from the sketchybar source, unchanged.
+  `claude_tokens.py`) that read candidate transcript paths on stdin.
 
 ## Requirements
 
@@ -56,7 +54,7 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
 | `interval` | `10` | Seconds between polls. Non-numeric or zero-equivalent falls back to `10`. |
 | `projects_dir` | `~/.claude/projects` | Directory of Claude Code transcript files (YAML can't expand `$HOME`, so this is applied at runtime). |
-| `process_pattern` | `local/bin/claude` | `pgrep -f` match string for a running Claude Code CLI process. The sketchybar default matches that user's install path - override for other installs (e.g. an npm-global `claude`). |
+| `process_pattern` | `local/bin/claude` | `pgrep -f` match string for a running Claude Code CLI process. The default matches a typical install path - override for other installs (e.g. an npm-global `claude`). |
 | `idle_icon_color` | `theme:warning` | Icon color while idle. |
 | `busy_icon_color` | `#12161D` | Icon color while working (fixed dark ink for contrast on the green background). |
 | `idle_bg_color` | `theme:background` | Pill background while idle. |
@@ -81,33 +79,20 @@ Enforced at the socket per `plugin.yaml`'s `owns: claude.` and
 `ridge popup set-rows` (rebuilding its rows) - the wire protocol maps both to
 the single `popup` op.
 
-## Deviations from the sketchybar source
+## Design notes
 
-- **No lazy popup-row bootstrap.** The sketchybar source built its popup rows
-  lazily on first open (`claude_rows.sh`) because sketchybar items need each
-  row pre-added before it can be set. Ridge's `popup set-rows` attaches and
+- **No lazy popup-row bootstrap.** Ridge's `popup set-rows` attaches and
   replaces the full row set in one call, so this plugin just rebuilds the
   full rows array every poll tick, like `battery.sh`/`weather.sh`.
-- **Dynamic row count, no empty placeholder rows.** The sketchybar popup had
-  fixed slots (5 session + 4 subagent) that got `drawing=off` when unused.
-  Ridge rebuilds the whole array each tick, so unused slots are simply
-  omitted rather than padded with hidden rows (matches `tasks.sh`'s variable
-  section-row approach).
-- **Token cache lives under `$XDG_STATE_HOME`, not `/tmp`.** The sketchybar
-  source cached 24h/7d totals at `/tmp/sketchybar_claude_daily`/`_weekly`.
-  This plugin follows `mindfulness.sh`'s state-dir convention instead:
+- **Dynamic row count, no empty placeholder rows.** Ridge rebuilds the whole
+  array each tick, so unused slots are simply omitted rather than padded with
+  hidden rows (matches `tasks.sh`'s variable section-row approach).
+- **Token cache lives under `$XDG_STATE_HOME`.** This plugin follows
+  `mindfulness.sh`'s state-dir convention:
   `${XDG_STATE_HOME:-$HOME/.local/state}/ridge/claude/`.
-- **Background refresh is lock-guarded.** The sketchybar source backgrounded
-  its cache refresh unconditionally on every stale poll; a slow refresh could
-  overlap a second one. This plugin adds a `mkdir`-based lock directory so at
-  most one refresh runs at a time.
+- **Background refresh is lock-guarded.** This plugin adds a `mkdir`-based
+  lock directory so at most one refresh runs at a time, since a slow refresh
+  could otherwise overlap a second one.
 - **`process_pattern` is a setting**, not a hardcoded `local/bin/claude`
-  match string, since that path is specific to the original sketchybar user's
-  install.
-
-## Credit
-
-`claude_working.py`, `claude_sessions.py`, and `claude_tokens.py` are adapted
-from `~/.config/sketchybar/plugins/claude_working.py`,
-`claude_sessions.py`, and `claude_tokens.py`; parsing/detection logic is
-unchanged.
+  match string, since the match string is specific to each install's
+  `claude` binary location.

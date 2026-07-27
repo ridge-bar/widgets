@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
-# App-name -> sketchybar-app-font ligature map, e.g. "Google Chrome" ->
-# ":google_chrome:". Vendored from sketchybar-app-font's icon_map.sh so ridge's
-# AeroSpace plugin renders the same icons as a sketchybar bar using that font:
-#   https://github.com/kvndrsslr/sketchybar-app-font (MIT License)
+# App-name -> app-icon ligature map, e.g. "Google Chrome" -> ":google_chrome:".
 # Keyed by the exact %{app-name} aerospace reports; ~553 apps mapped, unmapped
 # apps fall through to ":default:". The ligature only resolves to an icon
-# glyph when rendered in the sketchybar-app-font font (see the aerospace
-# plugin's app_font* settings) - install that font, or icons show as literal
-# text like ":google_chrome:".
+# glyph when rendered in a font that defines it (see the aerospace plugin's
+# app_font* settings) - otherwise icons show as literal text like
+# ":google_chrome:".
 #
 # To add or change a mapping, edit the case statement below - no changes to
 # aerospace-plugin.sh needed.
@@ -1677,7 +1674,7 @@ function __icon_map() {
 }
 ### END-OF-ICON-MAP
 
-# Prints the sketchybar-app-font ligature string for app name $1, e.g.
+# Prints the app-icon ligature string for app name $1, e.g.
 # ":google_chrome:" for "Google Chrome". Falls back to ":default:" for an
 # unmapped app (see __icon_map above).
 app_icon() {

@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
 # Ridge claude plugin: an icon that tints green while any Claude Code session
 # is mid-turn or a subagent is running, plus a details popup listing active
-# sessions, live subagents, and token usage over 5h/24h/7d windows. Ported
-# from sketchybar's items/claude.sh + plugins/claude_usage.sh +
-# plugins/claude_popup.sh (see README.md). Talks to ridge over $RIDGE_SOCKET
-# via the `ridge` CLI.
+# sessions, live subagents, and token usage over 5h/24h/7d windows (see
+# README.md). Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI.
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ITEM_ID="claude.status"
 CLAUDE_GLYPH="󰚩"
-# Fixed accent for the popup's title row, matching sketchybar's CLAUDEICON.
+# Fixed accent for the popup's title row.
 # Not user-configurable - a fixed accent, not a threshold color (mirrors
 # battery.sh's BATTERY_TITLE_COLOR / weather.sh's WEATHER_TITLE_COLOR).
 CLAUDE_TITLE_COLOR="#FF9E64"
@@ -43,9 +41,8 @@ load_settings() {
   SETTING_projects_dir="$(jq -r '.projects_dir // ""' <<<"$json")"
   [[ -n "$SETTING_projects_dir" ]] || SETTING_projects_dir="${HOME}/.claude/projects"
 
-  # `pgrep -f` match string for a running Claude Code CLI process. Ported
-  # verbatim from the sketchybar source's `pgrep -f 'local/bin/claude'`,
-  # which is specific to that user's install path - exposed as a setting so
+  # `pgrep -f` match string for a running Claude Code CLI process. The
+  # default is specific to that user's install path - exposed as a setting so
   # other installs (e.g. an npm-global `claude`) can override it.
   SETTING_process_pattern="$(jq -r '.process_pattern // "local/bin/claude"' <<<"$json")"
   [[ -n "$SETTING_process_pattern" ]] || SETTING_process_pattern="local/bin/claude"
@@ -80,8 +77,7 @@ load_settings() {
 # `find`, or the real Python helpers (see tests/rows.bats, tests/pure.bats).
 ##############################################################################
 
-# agent-<id>.jsonl path -> first 8 chars of <id>, via parameter expansion
-# (ported verbatim from the sketchybar source's claude_popup.sh).
+# agent-<id>.jsonl path -> first 8 chars of <id>, via parameter expansion.
 _claude_agent_short_id() {
   local path="$1" fname id
   fname="${path##*/}"
@@ -172,9 +168,8 @@ _claude_popup_rows_json() {
      ]'
 }
 
-# Sketchybar-style pill background flags for the item's `ridge add` call -
-# extracted so bats can assert the flags without invoking the real `ridge`
-# CLI.
+# Pill background flags for the item's `ridge add` call - extracted so bats
+# can assert the flags without invoking the real `ridge` CLI.
 _pill_flags() {
   local out
   out="$(printf -- '--bg-color %s' "$SETTING_idle_bg_color")"

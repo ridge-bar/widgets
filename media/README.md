@@ -1,8 +1,7 @@
 # media plugin
 
 Now-playing media controls: a bar glyph reflecting idle/paused/playing state,
-plus a popup with title/time, transport, seek, and open-player rows. Ported
-from sketchybar's `items/media.sh` + `plugins/media*.sh`.
+plus a popup with title/time, transport, seek, and open-player rows.
 
 ## What it does
 
@@ -13,9 +12,9 @@ from sketchybar's `items/media.sh` + `plugins/media*.sh`.
   take a few seconds right after wake).
 - Clicking the item opens a popup with 8 rows, rebuilt every poll: title,
   time (elapsed / duration), Previous, Play/Pause, Next, Seek -10s, Seek
-  +10s, and Open player. There is no slider row type in ridge, so the
-  source's seek percentage slider becomes two fixed +/-10s presets, and its
-  scrolling label marquee becomes static truncation with an ellipsis.
+  +10s, and Open player. There is no slider row type in ridge, so a seek
+  percentage slider becomes two fixed +/-10s presets, and a scrolling label
+  marquee becomes static truncation with an ellipsis.
 - Transport, seek, and open-player rows self-reinvoke this script with an
   env var set (`MEDIA_CTRL`, `MEDIA_SEEK`, `MEDIA_OPEN`), then repaint
   immediately instead of waiting for the next poll.

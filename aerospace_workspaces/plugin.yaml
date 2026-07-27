@@ -26,9 +26,9 @@ settings:
   border_width: "2"
   region: "left"
   status_region: "right"     # region for the aerospace_ws.status "AeroSpace down" warning item
-  app_font: "sketchybar-app-font"  # app-glyph ligature font (github.com/kvndrsslr/sketchybar-app-font)
+  app_font: ""                # app-glyph ligature font name; must be set for icons to render
   app_font_style: "Regular"
-  app_font_size: "14"         # sketchybar itself typically uses ~13; tunable
+  app_font_size: "14"         # tunable
   show_empty_workspaces: "false"
   font: "Iosevka Nerd Font"   # bar font for the workspace number text; "" to use ridge default
   update_mode: "subscribe"    # "subscribe" (aerospace subscribe), "trigger" (ridge trigger aerospace_workspaces), or "poll"

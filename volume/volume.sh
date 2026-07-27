@@ -2,18 +2,17 @@
 # Ridge volume plugin: output/input audio volume glyph, backed by AppleScript
 # "volume settings" with an optional BetterDisplay DDC fallback for displays
 # whose volume macOS can't read/write in software, plus a popup for mute, a
-# volume slider, and output/input device switching. Ported from
-# sketchybar's items/volume.sh + plugins/volume*.sh (see README.md).
+# volume slider, and output/input device switching.
 #
-# Two deliberate departures from the sketchybar source:
+# Two implementation notes:
 #  - The "notch width" branch (only show the 3-level glyph on the notched
-#    built-in display, else always the high glyph) was a sketchybar-specific
-#    cosmetic hack tied to physical bar width on a notch; dropped entirely.
-#    The 3-level icon ladder is always used here.
-#  - Sliders (source's volume_slider.sh/volume_inslider.sh) are backed by
-#    ridge's `slider` popup-row type: one draggable output-volume slider and
-#    one draggable input-volume slider, replacing the old 25/50/75/100%
-#    preset rows (and the +/-5% step rows - redundant with the slider).
+#    built-in display, else always the high glyph) was a cosmetic hack tied
+#    to physical bar width on a notch; dropped entirely. The 3-level icon
+#    ladder is always used here.
+#  - Sliders are backed by ridge's `slider` popup-row type: one draggable
+#    output-volume slider and one draggable input-volume slider, replacing
+#    the old 25/50/75/100% preset rows (and the +/-5% step rows - redundant
+#    with the slider).
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -23,7 +22,7 @@ BD_BIN="/Applications/BetterDisplay.app/Contents/MacOS/BetterDisplay"
 _have() { command -v "$1" >/dev/null 2>&1; }
 
 # `timeout` isn't shipped on macOS by default; alarm+exec is the standard
-# shim (matches tasks.sh / sketchybar's own bounded() helper). Wraps every
+# shim (matches tasks.sh). Wraps every
 # osascript/SwitchAudioSource/BetterDisplay call so a hung/slow external tool
 # can never stall the poll loop or a click handler.
 _timeout() {
@@ -70,7 +69,7 @@ load_settings() {
   [[ "$SETTING_betterdisplay_enabled" == "true" || "$SETTING_betterdisplay_enabled" == "false" ]] || SETTING_betterdisplay_enabled="false"
   SETTING_betterdisplay_name="$(jq -r '.betterdisplay_name // ""' <<<"$json")"
 
-  # Sketchybar-style pill geometry, matching the other widgets' pills.
+  # Pill geometry, matching the other widgets' pills.
   SETTING_corner_radius="$(jq -r '.corner_radius // ""' <<<"$json")"
   if [[ -n "$SETTING_corner_radius" ]] && ! [[ "$SETTING_corner_radius" =~ ^[0-9]+$ && "$SETTING_corner_radius" -ge 0 && "$SETTING_corner_radius" -le 30 ]]; then
     SETTING_corner_radius=""
@@ -266,7 +265,7 @@ return (output volume of s as string) & "|" & (output muted of s as string)' 2>/
 ##############################################################################
 
 # Reads the actual current mute state fresh (not from stale popup data) and
-# flips it - matches the source's volume_popup.sh mute row semantics.
+# flips it.
 _handle_mute_toggle() {
   local cur
   cur="$(_timeout 1 osascript -e 'output muted of (get volume settings)' 2>/dev/null)"
@@ -348,8 +347,8 @@ build_reexec_cmd() {
   printf '%s %s' "$out" "$(shq "$script_path")"
 }
 
-# One row per detected device of the given type, up to 6 (mirrors the
-# source's cap), active device highlighted via device_active_color. Empty
+# One row per detected device of the given type, up to 6, active device
+# highlighted via device_active_color. Empty
 # array when SwitchAudioSource isn't on PATH (soft dependency, no error).
 # Device names are hostile input: text goes through jq --arg, never string
 # interpolation; the click's device-name env var is shq-quoted so it can

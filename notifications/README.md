@@ -1,8 +1,7 @@
 # notifications plugin
 
 Colorizes the clock item's background while macOS Notification Center
-has unread notifications, and restores it when they're cleared - the same
-behavior as sketchybar's `plugins/notifications.sh` clock tint. The plugin
+has unread notifications, and restores it when they're cleared. The plugin
 owns no items: it re-styles the clock plugin's `clock.time` item
 through an explicit `permissions.styles` grant in its manifest (style-only
 `set`, enforced at the socket).

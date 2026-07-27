@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
-# Exercises the sketchybar-style pill background flags added to the item's
+# Exercises the pill background flags added to the item's
 # `ridge add` call (bg-color/corner-radius/height).
 
 setup() {

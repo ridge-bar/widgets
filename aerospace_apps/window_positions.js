@@ -4,7 +4,6 @@
 // neither the visual on-screen order nor stable - so the plugin sorts windows
 // by this positional data instead. Reading kCGWindowBounds needs no Screen
 // Recording permission (only window titles do, which this script never reads).
-// Technique borrowed from sketchybar's window_order.js.
 //
 // No stdin: returns positions for every on-screen window in one call, so the
 // caller (aerospace-plugin.sh) invokes this exactly once per reconcile and

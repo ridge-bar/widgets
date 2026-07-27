@@ -22,9 +22,9 @@ settings:
   bubble_margin: "6"          # gap between adjacent app bubbles (matches workspace pills)
   max: "8"                    # max windows drawn in the list, per monitor
   font: "Iosevka Nerd Font"        # bar font for app-name labels ("" = bar default)
-  app_font: "sketchybar-app-font"  # app-glyph ligature font (github.com/kvndrsslr/sketchybar-app-font)
+  app_font: ""                # app-glyph ligature font name; must be set for icons to render
   app_font_style: "Regular"
-  app_font_size: "14"         # sketchybar itself typically uses ~13; tunable
+  app_font_size: "14"         # tunable
   update_mode: "subscribe"    # "subscribe" (aerospace subscribe), "trigger" (ridge trigger aerospace_apps), or "poll"
   poll_interval: "2"          # seconds between reconciles in poll mode
 settings_schema:

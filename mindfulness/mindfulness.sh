@@ -3,15 +3,14 @@
 # then pulses red and rings a bell once until acknowledged (clicking the
 # quote row dismisses it and restarts the countdown). Left-click is
 # contextual (enable/disable/show_reminder depending on phase); right-click
-# opens a settings popup with interval/volume sliders. Ported from the
-# sketchybar mindfulness item/plugin/*_rows/*_interval/*_volume set - see
-# README.md for the settings-vs-state split this port introduces.
+# opens a settings popup with interval/volume sliders. See README.md for the
+# settings-vs-state split.
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ITEM_ID="mindfulness.status"
 
-# Leaf glyph (Nerd Font U+F06C), matching the source's ICON=''.
+# Leaf glyph (Nerd Font U+F06C).
 MINDFULNESS_ICON=$'\uf06c'
 
 # Leaf emoji (U+1F343), for popup rows only. Popups render icons in the
@@ -19,7 +18,7 @@ MINDFULNESS_ICON=$'\uf06c'
 # tofu); this codepoint falls back to Apple Color Emoji instead.
 MINDFULNESS_POPUP_ICON=$'\U0001F343'
 
-# Reminder messages shown on acknowledge, ported verbatim from the source.
+# Reminder messages shown on acknowledge.
 reminders=(
   "Sit up straight -- stack your head over your hips."
   "Drop your shoulders away from your ears."
@@ -137,7 +136,7 @@ _mindfulness_fmt_remaining() {
   printf '%dm %02ds' "$(( rem / 60 ))" "$(( rem % 60 ))"
 }
 
-# Pure pulse-frame alternation from wall-clock parity - replaces the source's
+# Pure pulse-frame alternation from wall-clock parity, rather than a
 # stateful /tmp PULSE-flag toggle. "1" = red frame, "0" = normal frame.
 _mindfulness_pulse_on() {
   local now="$1"
@@ -322,7 +321,7 @@ _mindfulness_reminder_row_json() {
     '[{icon: $icon, text: $text, click: $click}]'
 }
 
-# Sketchybar-style pill background flags (corner-radius/height/padding) for
+# Pill background flags (corner-radius/height/padding) for
 # the item's `ridge add` call - extracted so bats can assert the flags
 # without invoking the real `ridge` CLI. Only corner-radius/height/padding
 # here, not bg-color: mindfulness's own enabled/disabled/pulse colors already
@@ -512,7 +511,7 @@ main() {
 
   # First-run seed: only the keys that should survive process restarts.
   # cycle_start is deliberately NOT seeded here - it is reset unconditionally
-  # below, matching the source's "the countdown resets on every bar load".
+  # below.
   local state_dir; state_dir="$(_state_dir)"
   [[ -f "${state_dir}/enabled" ]] || _state_write enabled 0
   [[ -f "${state_dir}/interval_min" ]] || _state_write interval_min "$SETTING_default_interval"

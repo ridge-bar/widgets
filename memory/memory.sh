@@ -2,9 +2,8 @@
 # Ridge memory plugin: a memory usage bar-block glyph with threshold color,
 # plus a top-memory-processes popup. Split out of the former sysmon plugin
 # (which bracketed cpu+memory together) so memory is its own installable
-# widget. Ported from sketchybar's items/sysmon.sh + plugins/memory.sh +
-# plugins/sysmon_popup.sh + plugins/usage_bar.sh. See README.md. Talks to
-# ridge over $RIDGE_SOCKET via the `ridge` CLI.
+# widget. See README.md. Talks to ridge over $RIDGE_SOCKET via the `ridge`
+# CLI.
 set -uo pipefail
 
 ITEM_ID="memory.usage"
@@ -47,7 +46,7 @@ load_settings() {
   SETTING_mem_color="$(jq -r '.mem_color // "theme:media"' <<<"$json")"
   SETTING_warn_color="$(jq -r '.warn_color // "theme:warning"' <<<"$json")"
   SETTING_crit_color="$(jq -r '.crit_color // "theme:error"' <<<"$json")"
-  # Sketchybar-style pill background, matching battery/aerospace's bubbles.
+  # Pill background, matching battery/aerospace's bubbles.
   SETTING_bg_color="$(jq -r '.bg_color // "theme:background"' <<<"$json")"
   SETTING_corner_radius="$(jq -r '.corner_radius // ""' <<<"$json")"
   if [[ -n "$SETTING_corner_radius" ]] && ! [[ "$SETTING_corner_radius" =~ ^[0-9]+$ && "$SETTING_corner_radius" -ge 0 && "$SETTING_corner_radius" -le 30 ]]; then
@@ -62,8 +61,7 @@ load_settings() {
   fi
 }
 
-# 8-level vertical bar-block glyph (bar_char() from sketchybar's
-# usage_bar.sh, ported verbatim): idx = floor((pct*8+99)/100), clamped 1-8.
+# 8-level vertical bar-block glyph: idx = floor((pct*8+99)/100), clamped 1-8.
 _mem_bar_char() {
   local pct="$1" idx
   idx=$(( (pct * 8 + 99) / 100 ))
@@ -89,8 +87,7 @@ _mem_color() {
 }
 
 # Memory% (0-100) from `vm_stat` output: (active + wired + compressor pages)
-# * pagesize / total * 100, rounded. Ported verbatim from sketchybar's
-# memory.sh.
+# * pagesize / total * 100, rounded.
 _mem_pct() {
   local vm_stat_out="$1" total="$2" pagesize="$3"
   printf '%s\n' "$vm_stat_out" | awk -v total="$total" -v ps="$pagesize" '
@@ -101,7 +98,6 @@ _mem_pct() {
 }
 
 # RSS (KB) -> human size: "X.XG" at/above 1GiB (1048576 KB), else "XM".
-# Ported verbatim from sketchybar's sysmon_popup.sh awk formatter.
 _mem_fmt() {
   local kb="$1"
   awk -v k="$kb" 'BEGIN { if (k >= 1048576) printf "%.1fG", k/1048576; else printf "%dM", (k+512)/1024 }'
@@ -161,7 +157,7 @@ _mem_popup_open() {
   [[ "$open" == "true" ]]
 }
 
-# Sketchybar-style pill background flags for the item's `ridge add` call -
+# Pill background flags for the item's `ridge add` call -
 # extracted so bats can assert the flags without invoking the real `ridge`
 # CLI. Set once at add time: later `ridge set` calls only touch icon/color,
 # and an item's background/padding persists across those.

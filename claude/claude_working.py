@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# Adapted from ~/.config/sketchybar/plugins/claude_working.py (sketchybar config).
 """Detect whether any active Claude Code session is actively working (mid-turn).
 
 A session is "working" when its last user/assistant message is NOT an assistant

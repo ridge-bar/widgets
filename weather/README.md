@@ -1,8 +1,7 @@
 # weather plugin
 
 Condition glyph + current temperature from [wttr.in](https://wttr.in), with a
-popup for current conditions and a 3-day forecast. Ported from sketchybar's
-weather item/plugin trio; no sketchybar-specific behavior carried over.
+popup for current conditions and a 3-day forecast.
 
 ## What it does
 
@@ -38,7 +37,7 @@ clobbering the bar.
      - name: weather
        enabled: true
        settings:
-         location: "Szeged"
+         location: "Budapest"
          region: "right"
    ```
 
@@ -46,7 +45,7 @@ clobbering the bar.
 
 | Key | Default | Description |
 |---|---|---|
-| `location` | `Szeged` | wttr.in location query; URL-encoded before the request. Empty falls back to the default. |
+| `location` | empty | wttr.in location query; URL-encoded before the request. Empty means wttr.in geo-IPs the request, and the popup title shows the resolved area. |
 | `interval` | `1800` | Seconds between poll/refresh attempts. Non-numeric or zero-equivalent falls back to `1800`. |
 | `region` | `right` | Bar region for the item. |
 | `font` | `Iosevka Nerd Font` | Icon font; must be a Nerd Font for the glyph to render. |
@@ -70,8 +69,8 @@ clobbering the bar.
 ### Units
 
 wttr.in's j1 payload includes both Celsius and Fahrenheit fields, but the
-vendored parser reads only `temp_C` (matching the sketchybar source it was
-ported from) - the plugin is Celsius-only. No `units` setting is exposed: a
+vendored parser reads only `temp_C` - the plugin is Celsius-only. No `units`
+setting is exposed: a
 setting that had no effect on behavior would be misleading. Fahrenheit
 support would require editing `weather_parse.py`'s and
 `weather_popup_render.py`'s field reads.
@@ -82,9 +81,3 @@ support would require editing `weather_parse.py`'s and
 |---|---|
 | `weather.status` | The condition glyph + temperature item; click opens the popup. |
 
-## Credit
-
-`weather_parse.py` and `weather_popup_render.py` are adapted from
-`~/.config/sketchybar/plugins/weather_parse.py` and
-`~/.config/sketchybar/plugins/weather_popup_render.py`; parsing/rendering
-logic is unchanged.

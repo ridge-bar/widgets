@@ -126,8 +126,8 @@ load_settings() {
   fi
 }
 
-# Sketchybar-style pill geometry flags for the `ridge add` call - extracted
-# so bats can assert the flags without invoking the real `ridge` CLI.
+# Pill geometry flags for the `ridge add` call - extracted so bats can
+# assert the flags without invoking the real `ridge` CLI.
 _pill_flags() {
   local out=""
   [[ -n "$SETTING_corner_radius" ]] && out+="$(printf -- '--bg-corner-radius %s' "$SETTING_corner_radius")"

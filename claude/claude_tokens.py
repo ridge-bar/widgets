@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# Adapted from ~/.config/sketchybar/plugins/claude_tokens.py (sketchybar config).
 """Sum Claude Code real-work token usage inside a time window.
 
 Reads candidate transcript paths from stdin (a `find ... -mmin -N` list) and sums

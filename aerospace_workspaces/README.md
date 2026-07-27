@@ -1,8 +1,7 @@
 # aerospace_workspaces plugin
 
 Dynamic per-monitor [AeroSpace](https://github.com/nikitabobko/AeroSpace) workspace
-bubbles: sketchybar-style number + per-window glyphs, focus highlight, and
-click-to-switch.
+bubbles: number + per-window glyphs, focus highlight, and click-to-switch.
 
 ## What it does
 
@@ -36,7 +35,6 @@ click-to-switch.
 | AeroSpace | v0.21+ (needs `aerospace subscribe`) |
 | `jq` | JSON parsing of `ridge query` output and plugin settings |
 | A Nerd Font | For the bar's own text (workspace numbers); tofu/blank without one |
-| [sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font) | For app icons; install it, then set `app_font` (see [Settings](#settings)) |
 | `ridge` CLI | On `PATH`; used to reach the running bar over `$RIDGE_SOCKET` |
 
 ## Install
@@ -68,9 +66,9 @@ Colors and dimensions are in [Styling](#styling) below.
 | `show_empty_workspaces` | `false` | Show workspaces with no windows (unless focused/visible, which always show). |
 | `font` | `Iosevka Nerd Font` | Font for the bar's own text (workspace numbers). Empty uses ridge's default (system) font. |
 | `font_size` | unset | Optional point size for `font`. |
-| `app_font` | `sketchybar-app-font` | Font for app-icon ligatures (per-window glyphs). Must be installed for icons to render instead of literal `:app_name:` text. |
+| `app_font` | _(empty)_ | Font for app-icon ligatures (per-window glyphs). Must be set for icons to render; otherwise glyphs show as literal `:app_name:` text. |
 | `app_font_style` | `Regular` | Font style/weight for `app_font`. |
-| `app_font_size` | `14` | Point size for `app_font`. sketchybar itself typically uses ~13. |
+| `app_font_size` | `14` | Point size for `app_font`. |
 | `update_mode` | `subscribe` | `subscribe` (default) - stream AeroSpace events via `aerospace subscribe`; `trigger` - reconcile on `ridge trigger aerospace_workspaces` signal; `poll` - reconcile every `poll_interval` seconds. |
 | `poll_interval` | `2` | Seconds between reconciles in `poll` mode (ignored in other modes). Non-numeric or zero falls back to `2`. |
 | `status_color` | `theme:error` | Color of the `aerospace_ws.status` "AeroSpace down" warning item (shown in `status_region`). |
@@ -108,9 +106,8 @@ Tokyo Night by default. Editable per-key under `plugins[].settings` in
 | `bubble_margin` | `6` | Gap between workspace bubbles (bracket margin), px. |
 
 Number and glyph items in a bubble share a bracket, so they sit tight against
-each other; the padding above is what gives them internal spacing
-(sketchybar-style: number and glyphs close together, clear gap between
-workspaces).
+each other; the padding above is what gives them internal spacing (number and
+glyphs close together, clear gap between workspaces).
 
 `plugin.yaml`'s `settings_schema` maps each key above to a typed control
 (slider, toggle, color picker, or enum picker) in the GUI Settings window's
@@ -145,12 +142,12 @@ sets `RIDGE_PLUGIN_TOKEN` for the process and `ridge` forwards it automatically.
 
 ## App icons
 
-`glyphs.sh` maps an app's exact AeroSpace `%{app-name}` to a
-[sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font)
+`glyphs.sh` maps an app's exact AeroSpace `%{app-name}` to an app-icon
 ligature (e.g. `Google Chrome` -> `:google_chrome:`) via the vendored
 `__icon_map`/`app_icon` functions, covering ~553 apps; an unmapped app falls
-back to `:default:`. The ligature only renders as an icon glyph in the
-`app_font` font - install sketchybar-app-font, or it shows as literal text.
+back to `:default:`. The ligature only renders as an icon glyph when
+`app_font` is set to a font that defines it - otherwise it shows as literal
+text.
 To add or change a mapping, edit the case statement in `glyphs.sh` - no
 changes to `aerospace-workspaces-plugin.sh` needed.
 

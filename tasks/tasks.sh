@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 # Ridge tasks plugin: open-todo count badge from three sources - Things3
 # "Today" list, NotePlan's today calendar note, and an Obsidian inbox folder -
-# plus a per-source popup. Ported from sketchybar's
-# items/tasks.sh + plugins/tasks.sh + plugins/tasks_rows.sh + plugins/tasks_popup.sh
-# (see README.md). Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI.
+# plus a per-source popup. Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI.
 set -uo pipefail
 
 ITEM_ID="tasks.status"
@@ -73,7 +71,7 @@ load_settings() {
 
   SETTING_icon_color="$(jq -r '.icon_color // "theme:primary"' <<<"$json")"
   SETTING_empty_color="$(jq -r '.empty_color // "theme:secondary"' <<<"$json")"
-  # Sketchybar-style pill background, matching aerospace's workspace bubbles.
+  # Pill background, matching aerospace's workspace bubbles.
   SETTING_bg_color="$(jq -r '.bg_color // "theme:background"' <<<"$json")"
   SETTING_corner_radius="$(jq -r '.corner_radius // ""' <<<"$json")"
   if [[ -n "$SETTING_corner_radius" ]] && ! [[ "$SETTING_corner_radius" =~ ^[0-9]+$ && "$SETTING_corner_radius" -ge 0 && "$SETTING_corner_radius" -le 30 ]]; then
@@ -88,7 +86,7 @@ load_settings() {
   fi
 }
 
-# Sketchybar-style pill background flags for the item's `ridge add` call -
+# Pill background flags for the item's `ridge add` call -
 # extracted so bats can assert the flags without invoking the real `ridge`
 # CLI.
 _pill_flags() {
@@ -99,8 +97,7 @@ _pill_flags() {
   printf '%s' "$out"
 }
 
-# Percent-encode a string for use in an obsidian:// URI (canonical bash form,
-# ported verbatim from the sketchybar source's urlencode()).
+# Percent-encode a string for use in an obsidian:// URI (canonical bash form).
 urlencode() {
   local LC_ALL=C str="$1" i char
   for (( i = 0; i < ${#str}; i++ )); do
@@ -285,10 +282,9 @@ main() {
   ridge add "$ITEM_ID" --region "$SETTING_region" --text "" --icon "$TASKS_GLYPH" --icon-color "$SETTING_empty_color" --click "ridge popup toggle $ITEM_ID" --font "$SETTING_font" --icon-padding-right 8 $(_pill_flags) || true
   trap 'ridge remove "$ITEM_ID" 2>/dev/null; exit 0' TERM INT
 
-  # Paint-refresh-paint sequentially, unlike the sketchybar source's
-  # `&`-backgrounded refresh: that source is a short-lived script invoked
-  # per-click/per-tick that must return fast, so it forks the slow refresh
-  # into the background. This script IS the long-running loop process -
+  # Paint-refresh-paint sequentially. A short-lived script invoked
+  # per-click/per-tick that must return fast would fork the slow refresh
+  # into the background instead. This script IS the long-running loop process -
   # nothing waits on it to return - so refreshing inline and repainting
   # before the sleep is simpler and still never blocks a click (a click just
   # runs `ridge popup toggle`, which reads whatever rows this loop last

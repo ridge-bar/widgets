@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 # Ridge battery plugin: a charge-level glyph with threshold color, plus a
 # details popup (charge status, time remaining, power source, health, cycles,
-# temperature). Ported from sketchybar's battery.sh/battery_popup.sh. See
-# README.md. Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI.
+# temperature). See README.md. Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI.
 set -uo pipefail
 
 ITEM_ID="battery.status"
-# Tokyo Night green accent for the popup's title row (sketchybar's BATTERYICON).
+# Tokyo Night green accent for the popup's title row.
 # Not user-configurable - it is a fixed accent, not a threshold color.
 BATTERY_TITLE_COLOR="#9ECE6A"
 
@@ -37,7 +36,7 @@ load_settings() {
   SETTING_warn_color="$(jq -r '.warn_color // "theme:warning"' <<<"$json")"
   SETTING_crit_color="$(jq -r '.crit_color // "theme:error"' <<<"$json")"
   SETTING_normal_color="$(jq -r '.normal_color // "theme:primary"' <<<"$json")"
-  # Sketchybar-style pill background, matching aerospace's workspace bubbles.
+  # Pill background, matching aerospace's workspace bubbles.
   SETTING_bg_color="$(jq -r '.bg_color // "theme:background"' <<<"$json")"
   SETTING_corner_radius="$(jq -r '.corner_radius // ""' <<<"$json")"
   if [[ -n "$SETTING_corner_radius" ]] && ! [[ "$SETTING_corner_radius" =~ ^[0-9]+$ && "$SETTING_corner_radius" -ge 0 && "$SETTING_corner_radius" -le 30 ]]; then
@@ -163,7 +162,7 @@ _battery_popup_rows_json() {
     ]'
 }
 
-# Sketchybar-style pill background flags for the item's `ridge add` call -
+# Pill background flags for the item's `ridge add` call -
 # extracted so bats can assert the flags without invoking the real `ridge`
 # CLI. Set once at add time: later `ridge set` calls only touch icon/color,
 # and an item's background/padding persists across those (ridge only

@@ -60,7 +60,7 @@ setup() {
   ! echo "$output" | grep -qE $'^ITEM\taerospace_apps\\.Built-in_Retina_Display\\.2\\.'
 }
 
-@test "desired_state renders icon items with the sketchybar-app-font ligature text" {
+@test "desired_state renders icon items with the app-icon ligature text" {
   run desired_state "${FIX}/monitors.tsv" "${FIX}/workspaces.tsv" "${FIX}/windows.tsv" "101"
   echo "$output" | grep -qE $'^ITEM\taerospace_apps\\.Built-in_Retina_Display\\.1\\.icon\t.*\t:kitty:\t'
   echo "$output" | grep -qE $'^ITEM\taerospace_apps\\.Built-in_Retina_Display\\.2\\.icon\t.*\t:google_chrome:\t'

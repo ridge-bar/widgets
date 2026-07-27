@@ -3,8 +3,7 @@
 Attention-colored pill showing the active AeroSpace binding mode (e.g.
 `SERVICE`), hidden
 while AeroSpace is in its `main` mode, positioned immediately before the
-`aerospace` plugin's workspace strip. Ported from sketchybar's
-`items/aerospace_mode.sh` + `plugins/aerospace_mode.sh`. Standalone from
+`aerospace` plugin's workspace strip. Standalone from
 `plugins/aerospace/` on purpose - it does not depend on that plugin running,
 only on its item ids.
 

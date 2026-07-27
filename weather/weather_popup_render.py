@@ -3,8 +3,6 @@
 
 Prints one `row|icon|label` line per popup item: current conditions
 (now/feels/humidity/wind) then a 3-day forecast (rows 1-3).
-
-Adapted from ~/.config/sketchybar/plugins/weather_popup_render.py.
 """
 import sys
 import json

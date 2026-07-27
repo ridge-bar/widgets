@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # Ridge vpn plugin: a connection-status glyph for NetBird + Cloudflare WARP,
 # plus a popup with connect/disconnect toggles, NetBird exit-node selection,
-# WARP virtual-network selection, and a WARP re-auth action. Ported from
-# sketchybar's items/vpn.sh + plugins/vpn*.sh; the click-time spinner glyph
-# animation is not ported (see README.md's "Deferred" section). Talks to
-# ridge over $RIDGE_SOCKET via the `ridge` CLI.
+# WARP virtual-network selection, and a WARP re-auth action. The click-time
+# spinner glyph animation is not implemented (see README.md's "Deferred"
+# section). Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI.
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -13,14 +12,14 @@ ITEM_ID="vpn.status"
 VPN_GLYPH_CONNECTED="󰦝"
 VPN_GLYPH_OFF="󰦞"
 
-# Row caps: matches the sketchybar source's MAX_EXIT/MAX_VNET - keeps the
-# popup bounded regardless of how many networks an org has configured.
+# Row caps keep the popup bounded regardless of how many networks an org has
+# configured.
 VPN_MAX_EXIT_NODES=5
 VPN_MAX_VNETS=4
 
-# Tokyo Night cyan (sketchybar source's VPNWARP/TN_CYAN) for the popup status
-# header when WARP is the (or a) connected backend. Not user-configurable -
-# a fixed accent, same idea as battery.sh's BATTERY_TITLE_COLOR.
+# Tokyo Night cyan for the popup status header when WARP is the (or a)
+# connected backend. Not user-configurable - a fixed accent, same idea as
+# battery.sh's BATTERY_TITLE_COLOR.
 VPN_WARP_HEADER_COLOR="#7DCFFF"
 
 _have() { command -v "$1" >/dev/null 2>&1; }
@@ -74,9 +73,9 @@ load_settings() {
   SETTING_interval="$(jq -r '.interval // "3"' <<<"$json")"
   [[ "$SETTING_interval" =~ ^[0-9]*\.?[0-9]+$ && -n "${SETTING_interval//[.0]/}" ]] || SETTING_interval="3"
 
-  # netbird_bin defaults to a `command -v` probe (matches the sketchybar
-  # source, which runs with a minimal PATH), falling back to the standard
-  # Homebrew path. plugin.yaml leaves the default empty since YAML can't
+  # netbird_bin defaults to a `command -v` probe (handles running with a
+  # minimal PATH), falling back to the standard Homebrew path. plugin.yaml
+  # leaves the default empty since YAML can't
   # express a runtime probe as a literal string - same technique as tasks.sh's
   # HOME-expanded noteplan_dir/obsidian_inbox_dir defaults. The candidate is
   # not existence-checked here; presence is checked at each call site via
@@ -162,8 +161,7 @@ _vpn_toggle_label() {
 # Any backend "unknown"
 # (with neither actually connected) paints unknown_color instead of folding
 # into "disconnected" - a parse failure must read differently from a clean
-# off state. Ported paint logic from the sketchybar source's vpn.sh, plus the
-# unknown branch which is a v1 addition.
+# off state. The unknown branch is a v1 addition.
 _vpn_paint_state() {
   local nb="$1" warp="$2" connected_color="$3" warp_accent="$4" netbird_icon_color="$5" off_color="$6" unknown_color="$7" bg_color="$8"
   if [[ "$nb" == "connected" || "$warp" == "connected" ]]; then
@@ -187,8 +185,7 @@ _vpn_paint_state() {
 # label|glyph|color for the popup's status header row. Unlike the bar item's
 # single connected bg, the header uses the WARP header accent whenever WARP
 # is (or is among) the connected backend(s), and the connected color only for
-# a NetBird-only connection - matches the sketchybar source's status_color
-# selection in vpn_popup.sh. "unknown" reads as not-connected here: the
+# a NetBird-only connection. "unknown" reads as not-connected here: the
 # reduced v1 header only distinguishes the four states the popup shows
 # (both / NetBird-only / WARP-only / disconnected), not a parse-failure state.
 _vpn_header_fields() {
@@ -288,8 +285,8 @@ _vpn_parse_netbird_exit_nodes() {
   ' <<<"$tsv" 2>/dev/null || printf '[]'
 }
 
-# "Server EU" from "Exit Node (Server EU)" - the sketchybar source's admin-
-# configured naming convention for exit-node routes. Falls back to the raw id
+# "Server EU" from "Exit Node (Server EU)" - the admin-configured naming
+# convention for exit-node routes. Falls back to the raw id
 # unchanged when it doesn't match (a route not named that way, or a future
 # naming scheme), so an unexpected id still gets a usable row label instead of
 # an empty one.
@@ -318,9 +315,9 @@ _vpn_parse_warp_vnets() {
   ' <<<"$raw" 2>/dev/null || printf '[]'
 }
 
-# Builds {text, click} popup rows for each parsed exit node. Marker mirrors
-# the sketchybar source's filled/hollow bullet (selected vs not); the click
-# toggles select/deselect per row so a currently-selected node can be turned
+# Builds {text, click} popup rows for each parsed exit node. Marker uses a
+# filled/hollow bullet (selected vs not); the click toggles select/deselect
+# per row so a currently-selected node can be turned
 # off directly, not just replaced by picking another. Text goes through
 # `jq -n --arg` (via the row-building jq call), never string interpolation,
 # so a hostile route id can't break the JSON payload; the id going into the
@@ -360,7 +357,7 @@ _vpn_vnet_rows_json() {
   printf '%s' "$out"
 }
 
-# Sketchybar-style pill background flags for the item's `ridge add` call -
+# Pill background flags for the item's `ridge add` call -
 # corner-radius/height/padding only, no bg-color: the bg color tracks
 # connection state and is set per poll via `ridge set --bg-color`, same
 # convention as the mindfulness plugin's colored-by-state item.
@@ -391,8 +388,7 @@ _vpn_inflight_flag() { printf '%s/inflight' "$(_vpn_state_dir)"; }
 
 # True while a netbird-toggle/warp-toggle/warp-reauth action is running. A
 # flag older than 1 minute is ignored so a crash mid-action cannot freeze the
-# poll loop forever - ported from the sketchybar source's
-# `find "$FLAG" -mmin +1` staleness check in vpn.sh/vpn_click.sh.
+# poll loop forever, via a `find "$FLAG" -mmin +1` staleness check.
 _vpn_inflight_active() {
   local flag; flag="$(_vpn_inflight_flag)"
   [[ -f "$flag" ]] && [[ -z "$(find "$flag" -mmin +1 2>/dev/null)" ]]
@@ -457,8 +453,8 @@ _vpn_poll_and_paint() {
   local reauth_visible=false
   if [[ "$warp_present" == "true" && "$warp_state" == "connected" ]]; then reauth_visible=true; fi
 
-  # Exit nodes are only listable while NetBird is connected (matches the
-  # sketchybar source); vnets are listed whenever warp-cli is present, since
+  # Exit nodes are only listable while NetBird is connected; vnets are
+  # listed whenever warp-cli is present, since
   # `warp-cli vnet` reports (and lets you pre-select) them regardless of
   # connection state.
   local exit_nodes_json='[]' vnets_json='[]'
@@ -490,8 +486,7 @@ _vpn_poll_and_paint() {
 # netbird-exit-select|netbird-exit-deselect|warp-vnet-select>: close the
 # popup first for responsiveness, set the in-flight guard so the poll loop
 # yields, run the actual command (NOT timeout-wrapped - connecting/selecting
-# can legitimately take longer than a short alarm, matches the sketchybar
-# source's vpn_action.sh not wrapping these either), clear the guard, repaint.
+# can legitimately take longer than a short alarm), clear the guard, repaint.
 _vpn_handle_action() {
   local action="$1"
   ridge popup hide "$ITEM_ID" 2>/dev/null || true

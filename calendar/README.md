@@ -1,9 +1,7 @@
 # calendar plugin
 
-A date item whose popup lists the next 24h of Apple Calendar meetings.
-Ported from sketchybar's `calendar_popup.sh`/`calendar_rows.sh`; no
-sketchybar-specific behavior carried over. The clock (time) item lives in
-the sibling [clock plugin](../clock).
+A date item whose popup lists the next 24h of Apple Calendar meetings. The
+clock (time) item lives in the sibling [clock plugin](../clock).
 
 ## What it does
 
@@ -110,10 +108,3 @@ Enforced at the socket per `plugin.yaml`'s `owns: calendar.` and
 `permissions.ops: [add, set, remove, popup]`. `popup` covers both
 `ridge popup toggle` (opening the popup) and `ridge popup set-rows`
 (rebuilding its rows) - the wire protocol maps both to the single `popup` op.
-
-## Credit
-
-`calendar_meetings.py`'s query and formatting logic is adapted from
-`~/.config/sketchybar/plugins/clock.sh` (busy-meeting count query) and
-`~/.config/sketchybar/plugins/calendar_popup.sh` (meetings query, start-time
-formatting, title truncation).

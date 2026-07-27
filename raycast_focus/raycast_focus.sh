@@ -2,8 +2,7 @@
 # Ridge Raycast Focus plugin: polls Raycast's menu bar item count (via System
 # Events) for an active Focus session and paints the bar item accordingly.
 # Clicking the item toggles the session directly via deeplink (see
-# build_click_cmd) rather than waiting for the next poll. Ported from the
-# sketchybar raycast_focus item/plugin pair.
+# build_click_cmd) rather than waiting for the next poll.
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -54,7 +53,7 @@ load_settings() {
   fi
 }
 
-# Sketchybar-style pill background flags (corner-radius/height/padding) for
+# Pill background flags (corner-radius/height/padding) for
 # the item's `ridge add` call - extracted so bats can assert the flags
 # without invoking the real `ridge` CLI. Only corner-radius/height/padding
 # here, not bg-color: on_color/off_color already serve as the

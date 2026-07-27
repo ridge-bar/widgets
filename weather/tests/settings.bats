@@ -7,7 +7,7 @@ setup() {
 
 @test "load_settings applies defaults" {
   RIDGE_PLUGIN_SETTINGS="" load_settings
-  [ "$SETTING_location" = "Szeged" ]
+  [ "$SETTING_location" = "" ]
   [ "$SETTING_region" = "right" ]
   [ "$SETTING_font" = "Iosevka Nerd Font" ]
   [ "$SETTING_interval" = "1800" ]
@@ -78,12 +78,38 @@ setup() {
   rm -f "$f"
 }
 
-@test "load_settings falls back to Szeged on an empty location" {
+@test "load_settings keeps an empty location, meaning geo-IP" {
   local f; f="$(mktemp)"
   printf '%s' '{"location":""}' >"$f"
   RIDGE_PLUGIN_SETTINGS="$f" load_settings
-  [ "$SETTING_location" = "Szeged" ]
+  [ "$SETTING_location" = "" ]
   rm -f "$f"
+}
+
+@test "_cache_file uses an 'auto' key when the location is empty" {
+  RIDGE_PLUGIN_SETTINGS="" load_settings
+  [[ "$(_cache_file)" == *"/ridge_weather_auto.json" ]]
+}
+
+@test "_location_label prefers an explicit location over the cached area" {
+  local c; c="$(mktemp)"
+  printf '%s' '{"nearest_area":[{"areaName":[{"value":"Vienna"}]}]}' >"$c"
+  SETTING_location="Budapest"
+  [ "$(_location_label "$c")" = "Budapest" ]
+  rm -f "$c"
+}
+
+@test "_location_label falls back to the geo-IP resolved area" {
+  local c; c="$(mktemp)"
+  printf '%s' '{"nearest_area":[{"areaName":[{"value":"Vienna"}]}]}' >"$c"
+  SETTING_location=""
+  [ "$(_location_label "$c")" = "Vienna" ]
+  rm -f "$c"
+}
+
+@test "_location_label falls back to a generic label when the cache is unreadable" {
+  SETTING_location=""
+  [ "$(_location_label "/nonexistent/cache.json")" = "Current location" ]
 }
 
 @test "load_settings keeps a valid interval override" {

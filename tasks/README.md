@@ -2,8 +2,6 @@
 
 Open-todo count badge from three sources - Things3's "Today" list, NotePlan's
 today calendar note, and an Obsidian inbox folder - plus a per-source popup.
-Ported from sketchybar's `items/tasks.sh` + `plugins/tasks.sh` +
-`plugins/tasks_rows.sh` + `plugins/tasks_popup.sh`.
 
 ## What it does
 
@@ -76,7 +74,7 @@ All optional; override per-key under `plugins[].settings` in `ridge.yaml`.
 | `max_rows` | `8` | Max popup rows per section. Out-of-range (not 1-20) or non-numeric falls back to `8`. |
 | `icon_color` | `theme:primary` | Item color when the total open-task count is greater than 0. |
 | `empty_color` | `theme:secondary` | Item color when the total is 0. |
-| `bg_color` | `theme:background` | Pill background color (sketchybar-style bubble, matching aerospace). |
+| `bg_color` | `theme:background` | Pill background color (bubble, matching aerospace). |
 | `corner_radius` | _(unset)_ | Pill corner radius; unset inherits the bar's global `item_corner_radius`. |
 | `bg_height` | _(auto)_ | Pill height; adapts to the bar height unless set. |
 

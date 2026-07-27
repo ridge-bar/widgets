@@ -12,6 +12,7 @@ teardown() { rm -rf "$TMP"; }
 # BRACKET columns: id, members, bg-color, border-color, border-width.
 
 @test "reconcile inserts a new bubble (icon in center + app font, label, bracket)" {
+  SETTING_app_font="TestAppFont"
   printf 'ITEM\taerospace_apps.DELL_U2720Q.1.icon\tDELL U2720Q\tDELL U2720Q\t:ghostty:\t#565F89\taerospace focus --window-id 200\n' >"$TMP/desired"
   printf 'ITEM\taerospace_apps.DELL_U2720Q.1.label\tDELL U2720Q\tDELL U2720Q\tGhostty\t#565F89\taerospace focus --window-id 200\n' >>"$TMP/desired"
   printf 'BRACKET\taerospace_apps.DELL_U2720Q.1\taerospace_apps.DELL_U2720Q.1.icon,aerospace_apps.DELL_U2720Q.1.label\t#292E42\t#292E42\t0\n' >>"$TMP/desired"
@@ -24,13 +25,13 @@ teardown() { rm -rf "$TMP"; }
   [ -n "$icon_line" ]
   echo "$icon_line" | grep -q -- '--region center'
   echo "$icon_line" | grep -q 'ghostty'
-  echo "$icon_line" | grep -q -- '--font sketchybar-app-font --font-style Regular --font-size 14'
+  echo "$icon_line" | grep -q -- '--font TestAppFont --font-style Regular --font-size 14'
   # label lands in center too, plain app name, no app-font override.
   label_line="$(echo "$output" | grep '^ridge add aerospace_apps\.DELL_U2720Q\.1\.label ')"
   [ -n "$label_line" ]
   echo "$label_line" | grep -q -- '--region center'
   echo "$label_line" | grep -q 'Ghostty'
-  ! echo "$label_line" | grep -q -- '--font sketchybar-app-font'
+  ! echo "$label_line" | grep -q -- '--font TestAppFont'
   # bracket wraps both members.
   echo "$output" | grep -qE '^ridge bracket add aerospace_apps\.DELL_U2720Q\.1 --members aerospace_apps\.DELL_U2720Q\.1\.icon,aerospace_apps\.DELL_U2720Q\.1\.label '
 }
@@ -120,15 +121,16 @@ teardown() { rm -rf "$TMP"; }
 }
 
 @test "reconcile applies the app font to the icon and the label font to the label" {
+  SETTING_app_font="TestAppFont"
   printf 'ITEM\taerospace_apps.DELL.1.icon\tDELL\tDELL\t:kitty:\t#565F89\taerospace focus --window-id 100\n' >"$TMP/desired"
   printf 'ITEM\taerospace_apps.DELL.1.label\tDELL\tDELL\tkitty\t#565F89\taerospace focus --window-id 100\n' >>"$TMP/desired"
   : >"$TMP/current"
   run reconcile "$TMP/desired" "$TMP/current"
   icon_line="$(echo "$output" | grep '^ridge add aerospace_apps\.DELL\.1\.icon ')"
   label_line="$(echo "$output" | grep '^ridge add aerospace_apps\.DELL\.1\.label ')"
-  echo "$icon_line" | grep -q -- '--font sketchybar-app-font'
+  echo "$icon_line" | grep -q -- '--font TestAppFont'
   echo "$label_line" | grep -q -- '--font Iosevka'      # bar font, not the app glyph font
-  ! echo "$label_line" | grep -q -- 'sketchybar-app-font'
+  ! echo "$label_line" | grep -q -- 'TestAppFont'
 }
 
 @test "reconcile omits the label font when the font setting is empty (bar default)" {

@@ -31,7 +31,6 @@ workspace on each monitor: one bubble (app icon + name) per window, click-to-foc
 | AeroSpace | v0.21+ (needs `aerospace subscribe`) |
 | `jq` | JSON parsing of `ridge query` output and plugin settings |
 | A Nerd Font | For the bar's own text (window names); tofu/blank without one |
-| [sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font) | For app icons; install it, then set `app_font` (see [Settings](#settings)) |
 | `ridge` CLI | On `PATH`; used to reach the running bar over `$RIDGE_SOCKET` |
 
 ## Install
@@ -61,9 +60,9 @@ Colors and dimensions are in [Styling](#styling) below.
 | `region` | `center` | Bar region for the window list. |
 | `max` | `8` | Max windows drawn, per monitor. |
 | `font` | `Iosevka Nerd Font` | Bar font for app-name labels (empty = bar default). |
-| `app_font` | `sketchybar-app-font` | Font for app-icon ligatures (current-window icon). Must be installed for icons to render instead of literal `:app_name:` text. |
+| `app_font` | _(empty)_ | Font for app-icon ligatures (current-window icon). Must be set for icons to render; otherwise glyphs show as literal `:app_name:` text. |
 | `app_font_style` | `Regular` | Font style/weight for `app_font`. |
-| `app_font_size` | `14` | Point size for `app_font`. sketchybar itself typically uses ~13. |
+| `app_font_size` | `14` | Point size for `app_font`. |
 | `update_mode` | `subscribe` | `subscribe` (default) - stream AeroSpace events via `aerospace subscribe`; `trigger` - reconcile on `ridge trigger aerospace_apps` signal; `poll` - reconcile every `poll_interval` seconds. |
 | `poll_interval` | `2` | Seconds between reconciles in `poll` mode (ignored in other modes). Non-numeric or zero falls back to `2`. |
 
@@ -121,12 +120,12 @@ sets `RIDGE_PLUGIN_TOKEN` for the process and `ridge` forwards it automatically.
 
 ## App icons
 
-`glyphs.sh` maps an app's exact AeroSpace `%{app-name}` to a
-[sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font)
+`glyphs.sh` maps an app's exact AeroSpace `%{app-name}` to an app-icon
 ligature (e.g. `Google Chrome` -> `:google_chrome:`) via the vendored
 `__icon_map`/`app_icon` functions, covering ~553 apps; an unmapped app falls
-back to `:default:`. The ligature only renders as an icon glyph in the
-`app_font` font - install sketchybar-app-font, or it shows as literal text.
+back to `:default:`. The ligature only renders as an icon glyph when
+`app_font` is set to a font that defines it - otherwise it shows as literal
+text.
 To add or change a mapping, edit the case statement in `glyphs.sh` - no
 changes to `aerospace-apps-plugin.sh` needed.
 

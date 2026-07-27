@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
-# Locks the item's `ridge add` call to include the sketchybar-style pill
+# Locks the item's `ridge add` call to include the pill
 # corner-radius/height flags (matching the other widgets' pills). volume has
 # no _pill_flags() helper - corner-radius/bg-height are each emitted via their
 # own small helper instead, both omitted by default so the pill's radius/

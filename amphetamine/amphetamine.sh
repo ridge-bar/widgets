@@ -2,13 +2,12 @@
 # Ridge Amphetamine plugin: polls `pmset -g assertions` for an active
 # Amphetamine session and paints the bar item accordingly. Clicking the item
 # toggles the session directly (see build_click_cmd) rather than waiting for
-# the next poll. Ported from the sketchybar amphetamine item/plugin pair.
+# the next poll.
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Nerd Font glyphs (U+F0176 active, U+F04B2 inactive), matching the source
-# sketchybar icons exactly.
+# Nerd Font glyphs (U+F0176 active, U+F04B2 inactive).
 AMPH_GLYPH_ACTIVE=$'\U000f0176'
 AMPH_GLYPH_INACTIVE=$'\U000f04b2'
 
@@ -51,7 +50,7 @@ load_settings() {
   fi
 }
 
-# Sketchybar-style pill background flags (corner-radius/height/padding) for
+# Pill background flags (corner-radius/height/padding) for
 # the item's `ridge add`/`ridge set` calls - extracted so bats can assert the
 # flags without invoking the real `ridge` CLI. Only corner-radius/height/
 # padding here, not bg-color: on_color/off_color/warn_color already serve as
@@ -146,8 +145,7 @@ _amph_preflight() {
   return 1
 }
 
-# Toggles the Amphetamine session via AppleScript, ported verbatim from the
-# sketchybar plugin. Starting with NO options makes Amphetamine use its
+# Toggles the Amphetamine session via AppleScript. Starting with NO options makes Amphetamine use its
 # Preferences default duration (set that to 8 hours in Amphetamine's
 # preferences). We deliberately do NOT pass {interval:hours}: the .sdef
 # defines no such enumerator, so AppleScript substitutes the constant

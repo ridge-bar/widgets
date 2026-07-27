@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
-# Exercises the sketchybar-style pill geometry flags for the date item's
+# Exercises the pill geometry flags for the date item's
 # `ridge add` call (corner-radius/height), and statically checks that
 # `ridge add` line for item id and expected flags.
 

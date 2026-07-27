@@ -8,9 +8,6 @@ to a placeholder row; a malformed meeting row (e.g. an out-of-range
 occurrence_date) is skipped individually; a top-level backstop covers
 anything else - so the poll loop that invokes this script never freezes.
 stdlib only, no third-party deps.
-
-Ported from sketchybar's clock.sh (busy count query) and calendar_popup.sh
-(meetings query + row formatting) - see README.md.
 """
 import json
 import os

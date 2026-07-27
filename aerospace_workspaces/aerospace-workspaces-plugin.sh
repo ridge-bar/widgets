@@ -64,8 +64,8 @@ ORDER_CACHE_IS_FALLBACK=0
 shq() { printf "'%s'" "${1//\'/\'\\\'\'}"; }
 
 # --font/--font-style/--font-size flags for an app-glyph item (app_icon's
-# ligature only renders as an icon in the sketchybar-app-font font, not the
-# bar's default font). Each value is %q-quoted: this is assembled into a line
+# ligature only renders as an icon in the configured app_font, not the bar's
+# default font). Each value is %q-quoted: this is assembled into a line
 # reconcile emits for run_reconcile's eval. Empty SETTING_app_font omits the
 # flags entirely (load_settings normally guarantees it is non-empty, but a
 # caller setting it directly - e.g. a test - can still disable it this way).
@@ -117,16 +117,15 @@ load_settings() {
   # Empty -> no --font passed (the item uses ridge's bar.font/system default).
   SETTING_font="$(jq -r '.font // ""' <<<"$json")"
   SETTING_font_size="$(jq -r '.font_size // ""' <<<"$json")"
-  # Font for app-glyph ligatures (sketchybar-app-font, or a compatible icon
-  # font); these only resolve to icon glyphs in a font that defines the
-  # ligatures. Empty -> app icons render as literal ":app_name:" text.
-  SETTING_app_font="$(jq -r '.app_font // "sketchybar-app-font"' <<<"$json")"
-  [[ -n "$SETTING_app_font" ]] || SETTING_app_font="sketchybar-app-font"
+  # Font for app-glyph ligatures; these only resolve to icon glyphs in a font
+  # that defines the ligatures. Empty (the default) -> app icons render as
+  # literal ":app_name:" text.
+  SETTING_app_font="$(jq -r '.app_font // ""' <<<"$json")"
   SETTING_app_font_style="$(jq -r '.app_font_style // "Regular"' <<<"$json")"
   [[ -n "$SETTING_app_font_style" ]] || SETTING_app_font_style="Regular"
   SETTING_app_font_size="$(jq -r '.app_font_size // "14"' <<<"$json")"
   [[ "$SETTING_app_font_size" =~ ^[0-9]*\.?[0-9]+$ ]] || SETTING_app_font_size="14"
-  # Tokyo Night styling keys for the sketchybar-style multi-item bubble.
+  # Tokyo Night styling keys for the multi-item bubble.
   # bg_focused_color/glyph_focused_color fall back to the old
   # focused_color/normal_color keys so an existing ridge.yaml still works.
   SETTING_bg_focused_color="$(jq -r '.bg_focused_color // .focused_color // "theme:system"' <<<"$json")"
@@ -136,8 +135,8 @@ load_settings() {
   SETTING_corner_radius="$(jq -r '.corner_radius // ""' <<<"$json")"
   SETTING_height="$(jq -r '.height // ""' <<<"$json")"
   SETTING_max_ws_apps="$(jq -r '.max_ws_apps // "5"' <<<"$json")"
-  # Per-item sketchybar padding so the number + glyph items in a workspace
-  # bubble sit tight, with slightly more room right of the number.
+  # Per-item padding so the number + glyph items in a workspace bubble sit
+  # tight, with slightly more room right of the number.
   SETTING_num_pad_left="$(jq -r '.num_pad_left // "8"' <<<"$json")"
   SETTING_num_pad_right="$(jq -r '.num_pad_right // "4"' <<<"$json")"
   SETTING_glyph_pad_left="$(jq -r '.glyph_pad_left // "8"' <<<"$json")"
@@ -218,8 +217,8 @@ desired_state() {
 
   # workspaces_tsv columns: workspace, monitor-name, is-focused, is-visible.
   # Emptiness is derived from windows_tsv (no aerospace workspace-is-empty token).
-  # Each shown workspace becomes a sketchybar-style bubble: a number item, one
-  # item per window glyph, wrapped in a per-workspace bracket that draws the bg.
+  # Each shown workspace becomes a bubble: a number item, one item per window
+  # glyph, wrapped in a per-workspace bracket that draws the bg.
   while IFS=$'\t' read -r ws monitor focused visible; do
     [[ -z "$ws" ]] && continue
     show="no"
@@ -425,9 +424,8 @@ reconcile() {
 # desired_state) is unaffected beyond the new visual ordering.
 #
 # Known limitation: accordion-layout windows overlap/cascade on screen, so an
-# x-sort is not meaningful for them (sketchybar's space_glyphs.sh notes the
-# same). No special accordion handling here - it is x-sorted like any other
-# window, which is unreliable for that layout.
+# x-sort is not meaningful for them. No special accordion handling here - it
+# is x-sorted like any other window, which is unreliable for that layout.
 _order_windows_by_position() {
   local windows_tsv="$1" positions_tsv="$2"
   # FILENAME (not NR==FNR) distinguishes the two input files: NR==FNR would

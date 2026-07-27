@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 # Ridge notifications plugin: colorizes a target item's background (the
 # clock item by default) while macOS Notification Center has unread
-# notifications, and restores the normal colors when cleared - the same
-# clock-tint behavior as the sketchybar original. Owns no items of its own:
-# it re-styles a foreign item via the manifest's `permissions.styles` grant
-# (style-only `set`, enforced at the socket). Talks to ridge over
-# $RIDGE_SOCKET via the `ridge` CLI.
+# notifications, and restores the normal colors when cleared. Owns no items
+# of its own: it re-styles a foreign item via the manifest's
+# `permissions.styles` grant (style-only `set`, enforced at the socket).
+# Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI.
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

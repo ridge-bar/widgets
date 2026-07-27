@@ -1,9 +1,8 @@
 # vpn plugin
 
 NetBird + Cloudflare WARP connection status, plus a connect/disconnect popup
-with exit-node and virtual-network selection. Ported from sketchybar's
-`vpn.sh`/`vpn_popup.sh`/`vpn_action.sh`/`vpn_rows.sh` - see
-[Deferred](#deferred) below for what's not ported.
+with exit-node and virtual-network selection. See [Deferred](#deferred) below
+for what's not implemented.
 
 ## What it does
 
@@ -102,16 +101,15 @@ parsers are pure functions (`_vpn_parse_netbird_exit_nodes`,
 `_vpn_parse_warp_vnets`) covered by `tests/exit_vnet.bats` fixtures.
 
 An exit-node row toggles select/deselect per click (a filled/hollow marker
-mirrors the sketchybar source); a vnet row always selects (switching to WARP,
+shows selected vs not); a vnet row always selects (switching to WARP,
 dropping NetBird first). Route/vnet ids are hostile input - they only ever
 reach the click command via `shq`, never string-interpolated.
 
 ## Deferred
 
-The sketchybar source's click-time spinner glyph animation (`vpn_click.sh`)
-is **not ported**: it repaints the bar item directly from a background loop
-tied to the click's own process lifetime, which doesn't fit ridge's model of
-a click running a detached command via `/bin/sh -c` with no channel back to
-animate the icon mid-flight. The underlying "don't let the poll loop race an
-in-flight action" idea is kept (see the in-flight guard in `vpn.sh`), just
-without the animated feedback.
+There's no click-time spinner glyph animation: ridge runs a click as a
+detached command via `/bin/sh -c`, with no channel back to animate the icon
+mid-flight, so the bar item only repaints once the action finishes (or on
+the next poll tick). The in-flight guard in `vpn.sh` still stops the poll
+loop from racing an in-flight action; there's just no animated feedback
+while one runs.

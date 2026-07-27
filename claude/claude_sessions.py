@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Adapted from ~/.config/sketchybar/plugins/claude_sessions.py (sketchybar config).
-"""Per-session state for the Claude Code SketchyBar popup.
+"""Per-session state for the Claude Code popup.
 
 Reads candidate transcript paths on stdin, takes the N most-recently-modified
 (N = argv[1] = running `claude` process count). For each, prints one tab-separated

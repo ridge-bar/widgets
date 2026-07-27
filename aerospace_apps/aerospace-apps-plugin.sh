@@ -73,8 +73,8 @@ ORDER_CACHE_IS_FALLBACK=0
 shq() { printf "'%s'" "${1//\'/\'\\\'\'}"; }
 
 # --font/--font-style/--font-size flags for an app-glyph item (app_icon's
-# ligature only renders as an icon in the sketchybar-app-font font, not the
-# bar's default font). Each value is %q-quoted: this is assembled into a line
+# ligature only renders as an icon in the configured app_font, not the bar's
+# default font). Each value is %q-quoted: this is assembled into a line
 # reconcile emits for run_reconcile's eval. Empty SETTING_app_font omits the
 # flags entirely (load_settings normally guarantees it is non-empty, but a
 # caller setting it directly - e.g. a test - can still disable it this way).
@@ -117,11 +117,10 @@ load_settings() {
   fi
   # Region for the center window-list widget.
   SETTING_region="$(jq -r '.region // "center"' <<<"$json")"
-  # Font for app-glyph ligatures (sketchybar-app-font, or a compatible icon
-  # font); these only resolve to icon glyphs in a font that defines the
-  # ligatures. Empty -> app icons render as literal ":app_name:" text.
-  SETTING_app_font="$(jq -r '.app_font // "sketchybar-app-font"' <<<"$json")"
-  [[ -n "$SETTING_app_font" ]] || SETTING_app_font="sketchybar-app-font"
+  # Font for app-glyph ligatures; these only resolve to icon glyphs in a font
+  # that defines the ligatures. Empty (the default) -> app icons render as
+  # literal ":app_name:" text.
+  SETTING_app_font="$(jq -r '.app_font // ""' <<<"$json")"
   SETTING_app_font_style="$(jq -r '.app_font_style // "Regular"' <<<"$json")"
   [[ -n "$SETTING_app_font_style" ]] || SETTING_app_font_style="Regular"
   SETTING_app_font_size="$(jq -r '.app_font_size // "14"' <<<"$json")"

@@ -3,8 +3,8 @@
 # reflecting idle/paused/playing state (optionally with a truncated
 # "artist - title" label), plus a popup with title/time rows, transport
 # controls (prev/play-pause/next), +/-10s seek presets, and an "open player"
-# action. Ported from sketchybar's items/media.sh + plugins/media*.sh (see
-# README.md). Talks to ridge over $RIDGE_SOCKET via the `ridge` CLI.
+# action. See README.md. Talks to ridge over $RIDGE_SOCKET via the `ridge`
+# CLI.
 set -uo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -14,8 +14,8 @@ _have() { command -v "$1" >/dev/null 2>&1; }
 
 # `timeout` isn't shipped on macOS by default; alarm+exec is the standard
 # shim (matches the sibling tasks/raycast_focus plugins). Wraps every
-# `nowplaying-cli` call, which the sketchybar source notes can take ~2-3s
-# right after wake - a hung call must never stall the poll loop or a click.
+# `nowplaying-cli` call, which can take ~2-3s right after wake - a hung call
+# must never stall the poll loop or a click.
 _timeout() {
   local secs="$1"
   shift
@@ -69,7 +69,7 @@ load_settings() {
   SETTING_paused_icon="$(jq -r '.paused_icon // "󰐊"' <<<"$json")"
   SETTING_paused_icon_color="$(jq -r '.paused_icon_color // "#12161D"' <<<"$json")"
   SETTING_paused_bg_color="$(jq -r '.paused_bg_color // "theme:warning"' <<<"$json")"
-  # Sketchybar-style pill geometry, matching the other widgets' pills.
+  # Pill geometry, matching the other widgets' pills.
   SETTING_corner_radius="$(jq -r '.corner_radius // ""' <<<"$json")"
   if [[ -n "$SETTING_corner_radius" ]] && ! [[ "$SETTING_corner_radius" =~ ^[0-9]+$ && "$SETTING_corner_radius" -ge 0 && "$SETTING_corner_radius" -le 30 ]]; then
     SETTING_corner_radius=""
@@ -114,8 +114,7 @@ _media_field() {
 }
 
 # idle | paused | playing. Idle when title is empty/"null"; otherwise paused
-# when playbackRate is zero-equivalent/empty/"null", else playing - matches
-# the sketchybar source's exact case list.
+# when playbackRate is zero-equivalent/empty/"null", else playing.
 _media_classify_state() {
   local title="$1" rate="$2"
   if [[ -z "$title" || "$title" == "null" ]]; then
@@ -154,18 +153,17 @@ _media_truncate_label() {
   printf '%s…' "${label:0:$((max - 1))}"
 }
 
-# "M:SS"; "0:00" when the value is empty or negative (ported verbatim from
-# the sketchybar source's fmt() - a zero/absent duration naturally formats
-# as "0:00" too, no separate <=0 branch needed).
+# "M:SS"; "0:00" when the value is empty or negative (a zero/absent duration
+# naturally formats as "0:00" too, no separate <=0 branch needed).
 _media_format_time() {
   local seconds="$1"
   awk -v s="$seconds" 'BEGIN { if (s == "" || s + 0 < 0) { print "0:00"; exit } printf "%d:%02d", int(s/60), int(s%60) }'
 }
 
 # icon|icon_color|bg_color for a given state, pipe-joined. Idle shares
-# playing_bg_color (the neutral bg) rather than getting its own setting,
-# mirroring the sketchybar source where idle and "playing" both use the same
-# background and only "paused" gets an attention color.
+# playing_bg_color (the neutral bg) rather than getting its own setting;
+# idle and "playing" share a background and only "paused" gets an attention
+# color.
 _media_paint_fields() {
   local state="$1"
   case "$state" in
@@ -191,8 +189,7 @@ _media_seek_target() {
     }'
 }
 
-# Extracts ClientBundleIdentifier from `nowplaying-cli get-raw` output
-# (ported verbatim sed pattern from the sketchybar source's media_open.sh).
+# Extracts ClientBundleIdentifier from `nowplaying-cli get-raw` output.
 _media_open_bundle_id() {
   local raw="$1"
   printf '%s' "$raw" | sed -n 's/.*ClientBundleIdentifier" *: *"\([^"]*\)".*/\1/p' | head -1
@@ -200,7 +197,6 @@ _media_open_bundle_id() {
 
 # True (status 0) when the bundle id is empty or looks like a web browser -
 # in that case we open the web player instead of foregrounding the browser.
-# Ported verbatim from the sketchybar source's media_open.sh case pattern.
 _media_is_browser_bundle() {
   local bundle="$1"
   case "$bundle" in
@@ -310,9 +306,8 @@ _media_poll_and_paint() {
 }
 
 # Entry point for MEDIA_CTRL=<prev|play|next>: run the transport command,
-# then repaint. The 0.3s settle delay is ported from the sketchybar source's
-# media_ctrl.sh, which waits for nowplaying-cli to reflect the new state
-# before its own repaint.
+# then repaint. The 0.3s settle delay waits for nowplaying-cli to reflect
+# the new state before the repaint.
 _media_handle_ctrl() {
   local ctrl="$1"
   case "$ctrl" in
@@ -339,8 +334,7 @@ _media_handle_seek() {
 }
 
 # Entry point for MEDIA_OPEN=1: foreground the playing app, or open the web
-# player when the source is a browser tab (ported verbatim from the
-# sketchybar source's media_open.sh), then close the popup.
+# player when the source is a browser tab, then close the popup.
 _media_handle_open() {
   local raw bundle
   raw="$(_timeout 2 nowplaying-cli get-raw 2>/dev/null)"
