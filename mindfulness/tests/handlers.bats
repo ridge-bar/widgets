@@ -56,10 +56,21 @@ teardown() {
 # interval_min=1 with cycle_start far in the past guarantees the "overdue"
 # phase regardless of when the test runs, without stubbing `date`.
 
-@test "_mindfulness_handle_click(left) while overdue shows the reminder without restarting the timer when core can't confirm the popup is visible (no ridge on PATH)" {
+@test "_mindfulness_handle_click(left) while overdue shows the reminder without restarting the timer when core cannot be asked (ridge unavailable)" {
   _state_write enabled 1
   _state_write cycle_start 1000
   _state_write interval_min 1
+
+  # Emulate `ridge` being absent rather than relying on it not being
+  # installed: exit 127 with no output is exactly what the caller sees when
+  # the command is not found, and it keeps the result the same on a machine
+  # that does have ridge on PATH.
+  cat > "${BIN_TMP}/ridge" <<'EOF'
+#!/usr/bin/env bash
+exit 127
+EOF
+  chmod +x "${BIN_TMP}/ridge"
+  PATH="${BIN_TMP}:${PATH}"
 
   run _mindfulness_handle_click left
   [ "$status" -eq 0 ]
